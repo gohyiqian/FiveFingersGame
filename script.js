@@ -1,99 +1,85 @@
-'use strict'
+// 'use strict'
 
-// define canvas size
-let canvas = document.getElementById('myCanvas');
-let ctx = canvas.getContext('2d');
-canvas.width = 400;
-canvas.height = 500;
+function startGame() {
+    redGamePiece = new component(50, 50, "red", 15, 10);
+    blueGamePiece = new component(50, 50, "blue", 90, 10);
+    greenGamePiece = new component(50, 50, "green", 175, 10);
+    yellowGamePiece = new component(50, 50, "yellow", 255, 10);
+    purpleGamePiece = new component(50, 50, "purple", 335, 10);
+    line1 = new trackLines(40, 0, 40, 500);
+    line2 = new trackLines(120, 0, 120, 500);
+    line3 = new trackLines(200, 0, 200, 500);
+    line4 = new trackLines(280, 0, 280, 500);
+    line5 = new trackLines(360, 0, 360, 500);
+    myGameArea.start();
+}
 
-ctx.font = "20px Arial";
-ctx.textAlign = "center";
-ctx.fillText("Yi Qian's Game", canvas.width / 2, canvas.height / 2)
-
-
-
-
-//draw lines
-class trackLines {
-    constructor(x1, y1, x2, y2) {
-
-        this.x1 = x1;
-        this.y1 = y1;
-        this.x2 = x2;
-        this.y2 = y2;
-        this.strokeStyle = "black";
-
+let myGameArea = {
+    canvas: document.createElement("canvas"),
+    start: function () {
+        this.canvas.width = 400;
+        this.canvas.height = 500;
+        this.context = this.canvas.getContext("2d");
+        document.body.insertBefore(this.canvas, document.body.childNodes[0]);
+        this.interval = setInterval(updateGameArea, 20);
+    },
+    clear: function () {
+        this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
     }
-    DrawingLines() {
+}
+
+function component(width, height, color, x, y) {
+    this.width = width;
+    this.height = height;
+    this.x = x;
+    this.y = y;
+    this.update = function () {
+        ctx = myGameArea.context;
+        ctx.fillStyle = color;
+        ctx.fillRect(this.x, this.y, this.width, this.height);
+    }
+}
+
+function trackLines(x1, y1, x2, y2) {
+    this.x1 = x1;
+    this.y1 = y1;
+    this.x2 = x2;
+    this.y2 = y2;
+    this.strokeStyle = "black";
+    this.drawLine = function () {
         ctx.beginPath();
-        ctx.lineWidth = "2";
-        ctx.strokeStyle = "black";
+        // ctx.lineWidth = "2";
+        // ctx.strokeStyle = "black";
         ctx.moveTo(this.x1, this.y1);
         ctx.lineTo(this.x2, this.y2);
         ctx.stroke();
-        ctx.closePath();
+        // ctx.closePath();
     }
 }
 
-//x,y,width,height
-let Lines = [
-    new trackLines(40, 0, 40, canvas.height),
-    new trackLines(120, 0, 120, canvas.height),
-    new trackLines(200, 0, 200, canvas.height),
-    new trackLines(280, 0, 280, canvas.height),
-    new trackLines(360, 0, 360, canvas.height)
-];
+function updateGameArea() {
 
-
-class Square {
-    constructor(x, y, color, speed) {
-        this.x = x;
-        this.y = y;
-        this.color = color;
-        this.size = 50;
-        this.speed = speed
-    }
-
-    draw() {
-        ctx.fillStyle = this.color;
-        ctx.fillRect(this.x, this.y, this.size, this.size);
-        ctx.fill();
-    }
-
-    update() {
-        this.y += this.speed;
-        if (this.y == 480) {
-            this.y = 0 - this.size;
-        }
-    }
+    // can improve this random movement
+    let num = Math.floor((Math.random() * 1) + 5)
+    let num2 = Math.floor((Math.random() * 1) + 6)
+    let num3 = Math.floor((Math.random() * 1) + 3)
+    let num4 = Math.floor((Math.random() * 1) + 4.5)
+    myGameArea.clear();
+    redGamePiece.y += num;
+    blueGamePiece.y += num2;
+    greenGamePiece.y += num3;
+    yellowGamePiece.y += num4;
+    purpleGamePiece.y += num;
+    redGamePiece.update();
+    blueGamePiece.update();
+    greenGamePiece.update();
+    yellowGamePiece.update();
+    purpleGamePiece.update();
+    line1.drawLine();
+    line2.drawLine();
+    line3.drawLine();
+    line4.drawLine();
+    line5.drawLine();
 }
 
-let squares = [
-    new Square(15, 0, "red", 3),
-    new Square(95, 0, "blue", 3),
-    new Square(175, 0, "green", 3),
-    new Square(255, 0, "yellow", 3),
-    new Square(335, 0, "purple", 3)
-];
-
-function DrawLines() {
-
-    ctx.beginPath();
-    ctx.lineWidth = "2";
-    ctx.strokeStyle = "black";
-    ctx.moveTo(0, 0);
-    ctx.lineTo(0, 0);
-    ctx.stroke();
-    ctx.closePath();
-    Lines.forEach(trackLines => trackLines.DrawingLines());
-}
-
-
-//test circle
-ctx.beginPath();
-ctx.arc(200, 75, 50, 0 * Math.PI, 2 * Math.PI);
-ctx.stroke();
-
-
-DrawLines()
-squares.forEach(square => square.draw());
+startGame()
