@@ -83,3 +83,69 @@ function updateGameArea() {
 }
 
 startGame()
+
+
+// EventListeners
+let numOfButtons = document.querySelectorAll("#key").length;
+
+// mouse-click eventlistener
+for (let i = 0; i < numOfButtons; i++) {
+  document.querySelectorAll("#key")[i].addEventListener("click", function () {
+    let buttonInnerHTML = this.innerHTML;
+    console.log(buttonInnerHTML)
+    makeSound(buttonInnerHTML);
+    buttonAnimation(buttonInnerHTML);
+  });
+}
+
+// keypress eventlistener
+document.addEventListener("keypress", function (event) {
+  makeSound(event.key);
+  buttonAnimation(event.key);
+});
+
+
+function makeSound(key) {
+
+  switch (key) {
+    case "a":
+      let tom1 = new Audio("sounds/correctSound.mp3");
+      tom1.play();
+      break;
+
+    case "s":
+      let tom2 = new Audio("sounds/correctSound.mp3");
+      tom2.play();
+      break;
+
+    case "d":
+      let tom3 = new Audio('sounds/correctSound.mp3');
+      tom3.play();
+      break;
+
+    case "f":
+      let tom4 = new Audio('sounds/correctSound.mp3');
+      tom4.play();
+      break;
+
+    case "g":
+      let snare = new Audio('sounds/wrongSound.mp3');
+      snare.play();
+      break;
+
+    default:
+      console.log(key);
+
+  }
+}
+
+// some button effects
+function buttonAnimation(key) {
+  let activeButton = document.querySelector("." + key);
+  activeButton.classList.add("pressed");
+
+  setTimeout(function () {
+    activeButton.classList.remove("pressed");
+  }, 200);
+
+}

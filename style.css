@@ -18,3 +18,9 @@ canvas {
 .topSpacing {
     margin-bottom: 50px;
 }
+
+.pressed {
+    box-shadow: 0 10px 10px 0 #00FFFF;
+    background-color: yellow;
+    opacity: 0.5;
+  }
