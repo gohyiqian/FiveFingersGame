@@ -20,7 +20,7 @@ _You **can** combine them_
   * Item 2a
   * Item 2b
 
-![GitHub Logo](/images/logo.png)
+![GitHub Logo](/images/guitar.jpg)
 Format: ![Alt Text](url)
 
 http://github.com - automatic!
