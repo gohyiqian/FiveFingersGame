@@ -1,10 +1,23 @@
+![Guitar Image](/images/guitar.jpg)
+Format: ![Alt Text](url)
+
+# My Mini Game
+
 Hello.
 
-This is my first game.
+This is a simple adaptation of the popular *Guitar Hero* Game first released in 2005.
+Players match colored notes that scroll down on screen to score points.
+
+## Some To-Do List I have set for myself
+
+- [x] Create a canvas and add 5 buttons
+- [x] Add mouse-click & keypress eventlisteners
+- [x] Add corresponding colors when button is activated
+- [x] Add some music effects when button is activated correctly vs wrongly
+- [ ] Define a threshold for 'correctness'
+- [ ] Add scoring based of timing of activating the buttons
 
 
-# This is an <h1> tag
-## This is an <h2> tag
 ###### This is an <h6> tag
 
 *This text will be italic*
@@ -20,8 +33,7 @@ _You **can** combine them_
   * Item 2a
   * Item 2b
 
-![GitHub Logo](/images/guitar.jpg)
-Format: ![Alt Text](url)
+
 
 http://github.com - automatic!
 [GitHub](http://github.com)
