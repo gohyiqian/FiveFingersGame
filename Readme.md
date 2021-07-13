@@ -8,6 +8,11 @@ Hello.
 This is a simple adaptation of the popular *Guitar Hero* Game first released in 2005.
 Players match colored notes that scroll down on screen to score points.
 
+![Guitar Image](/images/screenshot.jpg)
+Format: ![Alt Text](url)
+
+<canvas> is an HTML element that allows a user to create graphics using Javascript. It can be used to create animations, interactive graphics, and browser games.
+
 ## Some To-Do List I have set for myself
 
 - [x] Create a canvas and add 5 buttons

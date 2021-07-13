@@ -19,7 +19,7 @@ let myGameArea = {
   start: function () {
     this.canvas.width = 400;
     this.canvas.height = 500;
-    this.context = this.canvas.getContext("2d");
+    this.context = this.canvas.getContext("2d"); //use canvas methods to draw in 2D
     document.body.insertBefore(this.canvas, document.body.childNodes[0]);
     this.interval = setInterval(updateGameArea, 20);
   },
@@ -57,13 +57,20 @@ function trackLines(x1, y1, x2, y2) {
   }
 }
 
+// function randomSpeed(){
+//   let power = Math.floor(Math.random()*10)
+//   let num = Math.floor(Math.random()*5+ power)
+//   console.log(num)
+// }
+// randomSpeed()
+
 function updateGameArea() {
 
   // can improve this random movement
-  let num = Math.floor((Math.random() * 1) + 5)
-  let num2 = Math.floor((Math.random() * 1) + 6)
-  let num3 = Math.floor((Math.random() * 1) + 3)
-  let num4 = Math.floor((Math.random() * 1) + 4.5)
+  let num = Math.floor((Math.random() * 5))
+  let num2 = Math.floor((Math.random() * 6))
+  let num3 = Math.floor((Math.random() * 3))
+  let num4 = Math.floor((Math.random() * 4.5))
   myGameArea.clear();
   redGamePiece.y += num;
   blueGamePiece.y += num2;
