@@ -19,8 +19,32 @@ canvas {
     margin-bottom: 50px;
 }
 
-.pressed {
+.pressed_a{
+    box-shadow: 0 10px 10px 0 #00FFFF;
+    background-color: red;
+    opacity: 0.7;
+}
+
+.pressed_s{
+    box-shadow: 0 10px 10px 0 #00FFFF;
+    background-color: blue;
+    opacity: 0.7;
+}
+
+.pressed_d{
+    box-shadow: 0 10px 10px 0 #00FFFF;
+    background-color: green;
+    opacity: 0.7;
+}
+
+.pressed_f{
     box-shadow: 0 10px 10px 0 #00FFFF;
     background-color: yellow;
-    opacity: 0.5;
-  }
+    opacity: 0.7;
+}
+
+.pressed_g{
+    box-shadow: 0 10px 10px 0 #00FFFF;
+    background-color: purple;
+    opacity: 0.7;
+}
