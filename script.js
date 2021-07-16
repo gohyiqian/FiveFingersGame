@@ -164,7 +164,7 @@ setInterval(myTimer, 0);
 // Add Time
 function myTimer() {
   const d = new Date();
-  document.getElementById("time").innerHTML = d.toLocaleTimeString();
+  document.getElementById("time").innerHTML = d.toLocaleTimeString('it-IT');
 }
 
 // EventListeners
@@ -177,6 +177,7 @@ for (let i = 0; i < numOfButtons; i++) {
     console.log(buttonInnerHTML)
     makeSound(buttonInnerHTML);
     buttonAnimation(buttonInnerHTML);
+    addScore(10)
   }, false);
 }
 
@@ -184,6 +185,7 @@ for (let i = 0; i < numOfButtons; i++) {
 document.addEventListener("keypress", function (event) {
   makeSound(event.key);
   buttonAnimation(event.key);
+  addScore(10);
 }, false);
 
 function makeSound(key) {
@@ -228,4 +230,38 @@ function buttonAnimation(key) {
   setTimeout(function () {
     activeButton.classList.remove("pressed_" + key);
   }, 200);
+}
+
+// Adding Score
+let score = 0;
+
+function addScore(x) {
+  $({
+    score: 0
+  }).animate({
+    score: x
+  }, {
+    duration: 1000,
+    easing: "linear",
+    step: function (now, fx) {
+      $("#score").html(score + Math.floor(now));
+    },
+    queue: false,
+    complete: function (now, fx) {
+      score += x;
+    }
+  });
+  $("#tag").fadeIn({
+    duration: 700,
+    easing: "linear",
+    step: function (now, fx) {
+      $(this).css("top", -55 * now + "px");
+    }
+  }).fadeOut({
+    duration: 300,
+    step: function (now, fx) {
+      $(this).css("top", -55 * (2 - now) + "px");
+    }
+  });
+
 }

@@ -16,6 +16,7 @@ body {
     background-position: center; /* Center the image */
     background-size:cover; /* Resize the background image to cover the entire container */
     /* background-color: #cccccc; */
+    align-items: center;
    }
 
 
@@ -98,6 +99,54 @@ body {
     transition: .5s
 }
 
+.container{
+    align-items: center;
+}
+
 .timing{
     margin-left: 25%;
+}
+
+#center {
+    transform-style: preserve-3d;
+    position: absolute;
+    top: 50%;
+    left: 15%;
+    transform: translateY(-50%) translateX(-50%);
+}
+
+#score1 {
+    transform-style: preserve-3d;
+    font-size:90px;
+    line-height: 90px;
+}
+
+#tag {
+    transform-style: preserve-3d;
+    display: none;
+    position:absolute;
+    top: -55px;
+    left:10%;
+    transform: translateX(-50%);
+    font-size:50px;
+    line-height: 50px;
+}
+
+#move {
+    background-color: gold;
+    margin-top: 20px;
+    font-size: 16px;
+    font-weight: bold;
+    border: 5px solid #333;
+    border-radius: 10px;
+    outline: none;
+    margin-left: 50%;
+}
+
+#move:hover {
+    background-color: coral;
+}
+
+#move:active {
+    background-color: yellowgreen;
 }
