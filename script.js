@@ -1,59 +1,50 @@
 'use strict'
 
 // define Canvas
-// let canvas = document.createElement("canvas");
-// let ctx = canvas.getContext("2d");
-// const w = canvas.width = 400;
-// const h = canvas.height = 500;
-//let redpieces = [];
+let canvas = document.createElement("canvas");
+document.body.insertBefore(canvas, document.body.childNodes[0]);
+let ctx = canvas.getContext("2d");
+const cw = canvas.width = 400;
+const ch = canvas.height = 500;
+
 let gameBlocks = [];
-
+let lines = [];
 // function startScene() {
-
 // }
 
 // function instructionScene() {
-
-// }
-
-// document.addEventListener("click", function () {
-//   ctx.rect(0, 0, w, h);
-//   ctx.fill();
-// })
-
-// function myGameArea() {
-//   document.body.insertBefore(canvas, document.body.childNodes[0]);
-//   setInterval(animateGameArea, 1);
 // }
 
 // object for canvas element
-const myGameCanvas = {
-  canvas: document.createElement("canvas"),
-  start: function () {
-    this.canvas.width = 400;
-    this.canvas.height = 500;
-    this.context = this.canvas.getContext("2d");
-    document.body.insertBefore(this.canvas, document.body.childNodes[0]);
-    this.frameNum = 0;
-    // window.setInterval(function, milliseconds);
-    //this.interval = setInterval(animateGame, 10); //update every 10th millisec => 100 times per sec
-  },
-  clear: function () {
-    this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
-  }
-}
+// const myGameCanvas = {
+//   canvas: document.createElement("canvas"),
+//   start: function () {
+//     this.canvas.width = 400;
+//     this.canvas.height = 550;
+//     this.context = this.canvas.getContext("2d");
+//     document.body.insertBefore(this.canvas, document.body.childNodes[0]);
+//     //this.frameNum = 0;
+//     // window.setInterval(function, milliseconds);
+//     //this.interval = setInterval(animateGame, 10); //update every 10th millisec => 100 times per sec
+//   },
+//   clear: function () {
+//     this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+//   }
+// }
 
-// create a class for constructing more components
-class component {
+// create a class for constructing components
+class Component {
   constructor(width, height, color, x, y) {
     this.width = width;
     this.height = height;
     this.color = color;
     this.x = x;
     this.y = y;
+    this.incrementer = Math.floor(Math.random() * 15);
   }
   update() {
-    let ctx = myGameCanvas.context;
+    this.y += this.incrementer;
+    // let ctx = myGameCanvas.context;
     let grd = ctx.createLinearGradient(0, 0, 0, 500);
     grd.addColorStop(0, "white");
     grd.addColorStop(1, this.color);
@@ -62,42 +53,34 @@ class component {
   }
 }
 
-
+// constructing some compoments
 function createComponents(num) {
   for (let i = 0; i < num; i++) {
-    let w = 50;
-    let h = 50;
-    let c = ['red', 'blue', 'green', 'yellow', 'purple'];
-    let x = [15, 90, 175, 255, 335];
+    let width = 40;
+    let height = 40;
+    let colors = ['red', 'blue', 'green', 'yellow', 'purple'];
+    let x = [20, 95, 180, 260, 340];
     let y = 10;
 
-    let eachBlock = new component(w, h, c[i], x[i], y)
+    let eachBlock = new Component(width, height, colors[i], x[i], y)
     gameBlocks.push(eachBlock);
   }
-  requestAnimationFrame(animateGame);
+  //requestAnimationFrame(createComponents);
 }
 
 createComponents(5);
-console.log(gameBlocks)
 
-// class instances
-// const redGamePiece = new component(50, 50, "red", 15, 10);
-// const blueGamePiece = new component(50, 50, "blue", 90, 10);
-// const greenGamePiece = new component(50, 50, "green", 175, 10);
-// const yellowGamePiece = new component(50, 50, "yellow", 255, 10);
-// const purpleGamePiece = new component(50, 50, "purple", 335, 10);
-
-// creating track lines
-class trackLines {
+// create a class for constructing tracklines
+class TrackLines {
   constructor(x1, y1, x2, y2, strokeStyle) {
     this.x1 = x1;
     this.y1 = y1;
     this.x2 = x2;
     this.y2 = y2;
-    this.strokeStyle = "black";
+    this.strokeStyle = strokeStyle;
   }
   drawLine() {
-    let ctx = myGameCanvas.context;
+    // let ctx = myGameCanvas.context;
     ctx.beginPath();
     ctx.moveTo(this.x1, this.y1);
     ctx.lineTo(this.x2, this.y2);
@@ -105,73 +88,55 @@ class trackLines {
     ctx.closePath();
   }
 }
+// constructing some tracklines
+function createLines(num) {
+  for (let i = 0; i < num; i++) {
+    let x1 = [40, 120, 200, 280, 360]
+    let y1 = 0;
+    let x2 = [40, 120, 200, 280, 360]
+    let y2 = 550;
 
-// write a loop for this when free
-const line1 = new trackLines(40, 0, 40, 500);
-const line2 = new trackLines(120, 0, 120, 500);
-const line3 = new trackLines(200, 0, 200, 500);
-const line4 = new trackLines(280, 0, 280, 500);
-const line5 = new trackLines(360, 0, 360, 500);
+    let eachLine = new TrackLines(x1[i], y1, x2[i], y2)
+    lines.push(eachLine);
+  }
+}
+createLines(5);
 
 
-// function randomSpeed() {
-//   let power = Math.floor(Math.random() * 10)
-//   let num = Math.floor(Math.random() * 5 + power)
-//   console.log(power)
-//   console.log(num)
-// }
-// randomSpeed()
+// maybe can input as array of digits that represent different songs
+function randomSpeed() {
+  let power = Math.floor(Math.random() * 3)
+  console.log(power)
+  let num = Math.floor(Math.random() * 5 + power)
+  console.log(num)
+  return num
+}
+randomSpeed()
 
-// let power = '-' + Math.floor(Math.random() * 1000) + 'px'
-// console.log(power)
 
 
 function animateGame() {
-  // can improve this random speed
-  //let num = Math.floor((Math.random() * 5))
-  // let num2 = Math.floor((Math.random() * 6))
-  // let num3 = Math.floor((Math.random() * 3))
-  // let num4 = Math.floor((Math.random() * 4.5))
-  // let num5 = Math.floor((Math.random() * 4))
-
-  // //redGamePiece.y += num;
-  // blueGamePiece.y += num2;
-  // greenGamePiece.y += num3;
-  // yellowGamePiece.y += num4;
-  // purpleGamePiece.y += num5;
-
-  myGameCanvas.clear();
-  // myGameCanvas.frameNum += 1;
-
-  // if (myGameCanvas.frameNum == 1) {
-  //   redpieces.push(new component(50, 50, "red", 15, 10))
-  // }
-  // for (let i = 0; i < redpieces.length; i++) {
-  //   redpieces[i].y += 1;
-  //   redpieces[i].update();
-  // }
-
-  //redGamePiece.update();
-  // blueGamePiece.update();
-  // greenGamePiece.update();
-  // yellowGamePiece.update();
-  // purpleGamePiece.update();
-
+  // myGameCanvas.clear();
+  // myGameCanvas.start();
+  ctx.clearRect(0, 0, cw, ch);
 
   for (let i = 0; i < gameBlocks.length; i++) {
-    gameBlocks[i].y += 1;
+    gameBlocks[i].y += randomSpeed();
     gameBlocks[i].update();
+    if (gameBlocks[i].y >= ch) {
+      gameBlocks[i].y = -ch;
+    }
   }
 
-  line1.drawLine();
-  line2.drawLine();
-  line3.drawLine();
-  line4.drawLine();
-  line5.drawLine();
-
-  requestAnimationFrame(animateGame);
+  for (let i = 0; i < lines.length; i++) {
+    lines[i].drawLine();
+  }
+  //requestAnimationFrame(animateGame);
 }
-myGameCanvas.start()
+
+//animateGame()
+setInterval(animateGame, 20);
+
 // const element = document.getElementById('key');
 // let start;
 // function step(timestamp) {
@@ -190,11 +155,11 @@ myGameCanvas.start()
 // window.requestAnimationFrame(step);
 
 
+let gameSpeed = 0;
+gameSpeed += randomSpeed();
+document.getElementById("speed").innerHTML = gameSpeed
 
-
-let gameScore = 0;
-
-setInterval(myTimer, 500);
+setInterval(myTimer, 0);
 
 // Add Time
 function myTimer() {
@@ -212,14 +177,14 @@ for (let i = 0; i < numOfButtons; i++) {
     console.log(buttonInnerHTML)
     makeSound(buttonInnerHTML);
     buttonAnimation(buttonInnerHTML);
-  });
+  }, false);
 }
 
 // keypress eventlistener
 document.addEventListener("keypress", function (event) {
   makeSound(event.key);
   buttonAnimation(event.key);
-});
+}, false);
 
 function makeSound(key) {
 

@@ -13,12 +13,14 @@ Format: ![Alt Text](url)
 
 The game is created using custom functions of HTML canvas element.
 Canvas is an HTML element that allows a user to create graphics, on the fly, using Javascript. It can be used to create animations, interactive graphics, and browser games.
+One thing to note is that the coordinate system for canvas starts from the top left.
 
 Basic Animation Steps using canvas elements:
 1. Draw the shapes to be animated
-2. Define motion (translate/rotate/scale)
-3. Clear the canvas
-4. Update/Restore the canvas using either: setInterval, setTimeout or requestAnimationFrame functions
+2. Define motion of shapes (transform in y-direction)
+3. Clear the canvas using *clearRect* function to remove previous frame
+4. Update the canvas. To constantly update the canvas, we need to define a drawing loop using JavaScript timing function such as *setInterval*, *setTimeout* or *requestAnimationFrame* functions
+
 
 ## Some To-Do List I have set for myself
 
