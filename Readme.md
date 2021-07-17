@@ -1,14 +1,14 @@
 ![Guitar Image](/images/guitar.jpg)
-Format: ![Alt Text](url)
 
 # My Mini Game
+[Try the Game Here](https://gohyiqian.github.io/GA-Project1/)
 ## An Overview
 Hello.
 
 This is a simple adaptation of the popular *Guitar Hero* Game first released in 2005.
 Players will time the descending target and receive points when they keypress or mouseclick 'A','S','D','F','G' at the correct timing.
 
-![Guitar Image](/images/screenshot.jpg)
+[Guitar Image](/images/screenshot.jpg)
 Format: ![Alt Text](url)
 
 The game is created using custom functions of HTML canvas element.
@@ -63,7 +63,7 @@ _You **can** combine them_
 
 
 
-http://github.com - automatic!
+
 [GitHub](http://github.com)
 
 As Kanye West said:
