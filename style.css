@@ -140,7 +140,9 @@ body {
     border: 5px solid #333;
     border-radius: 10px;
     outline: none;
-    margin-left: 50%;
+    position:relative;
+    display:block;
+    margin:30px auto;
 }
 
 #move:hover {
@@ -149,4 +151,13 @@ body {
 
 #move:active {
     background-color: yellowgreen;
+}
+
+li {
+    text-align: center;
+    list-style: none;
+}
+
+h2{
+    text-align: center;
 }

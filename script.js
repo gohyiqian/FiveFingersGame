@@ -82,6 +82,7 @@ class TrackLines {
   drawLine() {
     // let ctx = myGameCanvas.context;
     ctx.beginPath();
+    ctx.setLineDash([20, 5, 5, 5]);
     ctx.moveTo(this.x1, this.y1);
     ctx.lineTo(this.x2, this.y2);
     ctx.stroke();
@@ -94,7 +95,7 @@ function createLines(num) {
     let x1 = [40, 120, 200, 280, 360]
     let y1 = 0;
     let x2 = [40, 120, 200, 280, 360]
-    let y2 = 550;
+    let y2 = 500;
 
     let eachLine = new TrackLines(x1[i], y1, x2[i], y2)
     lines.push(eachLine);
@@ -104,14 +105,14 @@ createLines(5);
 
 
 // maybe can input as array of digits that represent different songs
-function randomSpeed() {
-  let power = Math.floor(Math.random() * 3)
-  console.log(power)
-  let num = Math.floor(Math.random() * 5 + power)
-  console.log(num)
-  return num
-}
-randomSpeed()
+// function randomSpeed() {
+//   let power = Math.floor(Math.random() * 3)
+//   console.log(power)
+//   let num = Math.floor(Math.random() * 5 + power)
+//   console.log(num)
+//   return num
+// }
+// randomSpeed()
 
 
 
@@ -121,11 +122,12 @@ function animateGame() {
   ctx.clearRect(0, 0, cw, ch);
 
   for (let i = 0; i < gameBlocks.length; i++) {
-    gameBlocks[i].y += randomSpeed();
+    gameBlocks[i].y += 1;
     gameBlocks[i].update();
-    if (gameBlocks[i].y >= ch) {
-      gameBlocks[i].y = -ch;
+    if (gameBlocks[i].y > 0.9 * ch) {
+      gameBlocks[i].y = 0;
     }
+
   }
 
   for (let i = 0; i < lines.length; i++) {
@@ -135,7 +137,7 @@ function animateGame() {
 }
 
 //animateGame()
-setInterval(animateGame, 20);
+setInterval(animateGame, 100); //every 1/10th of a second
 
 // const element = document.getElementById('key');
 // let start;
@@ -155,9 +157,9 @@ setInterval(animateGame, 20);
 // window.requestAnimationFrame(step);
 
 
-let gameSpeed = 0;
-gameSpeed += randomSpeed();
-document.getElementById("speed").innerHTML = gameSpeed
+// let gameSpeed = 0;
+// gameSpeed += randomSpeed();
+// document.getElementById("speed").innerHTML = gameSpeed
 
 setInterval(myTimer, 0);
 
@@ -175,7 +177,7 @@ for (let i = 0; i < numOfButtons; i++) {
   document.querySelectorAll("#key")[i].addEventListener("click", function () {
     let buttonInnerHTML = this.innerHTML;
     console.log(buttonInnerHTML)
-    makeSound(buttonInnerHTML);
+    makeCorrectSound(buttonInnerHTML);
     buttonAnimation(buttonInnerHTML);
     addScore(10)
   }, false);
@@ -183,12 +185,21 @@ for (let i = 0; i < numOfButtons; i++) {
 
 // keypress eventlistener
 document.addEventListener("keypress", function (event) {
-  makeSound(event.key);
-  buttonAnimation(event.key);
-  addScore(10);
+  for (let i = 0; i < gameBlocks.length; i++) {
+    if (gameBlocks[i].y >= 0.8 * ch && gameBlocks[i].y <= 0.9 * ch) {
+      makeCorrectSound(event.key);
+      buttonAnimation(event.key);
+      addScore(10);
+      console.log("Pressed!")
+    }
+    // } else if (gameBlocks[i].y < 0.8 * ch || gameBlocks[i].y > 0.9 * ch) {
+    //   makeWrongSound(event.key);
+    //   addScore(-10);
+    // }
+  }
 }, false);
 
-function makeSound(key) {
+function makeCorrectSound(key) {
 
   switch (key) {
     case "a":
@@ -208,6 +219,40 @@ function makeSound(key) {
 
     case "f":
       let btnF = new Audio('sounds/correctSound.mp3');
+      btnF.play();
+      break;
+
+    case "g":
+      let btnH = new Audio('sounds/correctSound.mp3');
+      btnH.play();
+      break;
+
+    default:
+      console.log(key);
+
+  }
+}
+
+function makeWrongSound(key) {
+
+  switch (key) {
+    case "a":
+      let btnA = new Audio("sounds/wrongSound.mp3");
+      btnA.play();
+      break;
+
+    case "s":
+      let btnB = new Audio("sounds/wrongSound.mp3");
+      btnB.play();
+      break;
+
+    case "d":
+      let btnD = new Audio('sounds/wrongSound.mp3');
+      btnD.play();
+      break;
+
+    case "f":
+      let btnF = new Audio('sounds/wrongSound.mp3');
       btnF.play();
       break;
 
