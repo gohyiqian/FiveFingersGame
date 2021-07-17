@@ -174,12 +174,17 @@ let numOfButtons = document.querySelectorAll("#key").length;
 
 // mouse-click eventlistener
 for (let i = 0; i < numOfButtons; i++) {
-  document.querySelectorAll("#key")[i].addEventListener("click", function () {
-    let buttonInnerHTML = this.innerHTML;
-    console.log(buttonInnerHTML)
-    makeCorrectSound(buttonInnerHTML);
-    buttonAnimation(buttonInnerHTML);
-    addScore(10)
+  document.querySelectorAll("#key")[i].addEventListener("click", function (event) {
+    for (let i = 0; i < gameBlocks.length; i++) {
+      let buttonInnerHTML = this.innerHTML;
+      if (gameBlocks[i].y >= 0.85 * ch) {
+        makeCorrectSound(buttonInnerHTML);
+        buttonAnimation(buttonInnerHTML);
+        addScore(10)
+      } else if (gameBlocks[i].y < 0.8 * ch) {
+        makeWrongSound(buttonInnerHTML);
+      }
+    }
   }, false);
 }
 
@@ -190,7 +195,7 @@ document.addEventListener("keypress", function (event) {
       makeCorrectSound(event.key);
       buttonAnimation(event.key);
       addScore(10);
-      console.log("Pressed!")
+      console.log(event.key)
     } else if (gameBlocks[i].y < 0.8 * ch) {
       makeWrongSound(event.key);
     }
