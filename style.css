@@ -4,9 +4,7 @@ canvas {
     background-image: linear-gradient(skyblue,white);
     padding-left: 0;
     padding-right: 0;
-    margin-top:50px;
-    margin-left: auto;
-    margin-right: auto;
+    margin:50px auto 20px auto;
     display: block;
     border-radius: 3%;
 }
@@ -19,14 +17,24 @@ body {
     align-items: center;
    }
 
+.row{
+    justify-content: center;
+    align-items: center;
+    margin: auto 100px;
+}
 
 #key{
-    padding:25px;
-    margin:7px;
+    width: 75px;
+    height: 70px;
     border-radius: 10px;
     border: 3px solid black;
     font-family: fantasy;
     font-size: 20px;
+    position:relative;
+    display:block;
+    justify-content: center;
+    margin:1px;
+    padding:15px 1px;
 }
 
 .a{
@@ -49,8 +57,9 @@ body {
     color:purple;
 }
 
-.topSpacing {
-    margin-bottom: 20px;
+.a:hover, .s:hover, .d:hover, .f:hover, .g:hover {
+    background-color:#00FFFF;
+    opacity: 0.7;
 }
 
 .pressed_a{

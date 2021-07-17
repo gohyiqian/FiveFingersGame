@@ -4,7 +4,7 @@
 let canvas = document.createElement("canvas");
 document.body.insertBefore(canvas, document.body.childNodes[0]);
 let ctx = canvas.getContext("2d");
-const cw = canvas.width = 400;
+const cw = canvas.width = 380;
 const ch = canvas.height = 500;
 
 let gameBlocks = [];
@@ -59,7 +59,7 @@ function createComponents(num) {
     let width = 40;
     let height = 40;
     let colors = ['red', 'blue', 'green', 'yellow', 'purple'];
-    let x = [20, 95, 180, 260, 340];
+    let x = [cw * 0.1 - 20, cw * 0.3 - 20, cw * 0.5 - 20, cw * 0.7 - 20, cw * 0.9 - 20];
     let y = 10;
 
     let eachBlock = new Component(width, height, colors[i], x[i], y)
@@ -92,10 +92,10 @@ class TrackLines {
 // constructing some tracklines
 function createLines(num) {
   for (let i = 0; i < num; i++) {
-    let x1 = [40, 120, 200, 280, 360]
+    let x1 = [cw * 0.1, cw * 0.3, cw * 0.5, cw * 0.7, cw * 0.9];
     let y1 = 0;
-    let x2 = [40, 120, 200, 280, 360]
-    let y2 = 500;
+    let x2 = [cw * 0.1, cw * 0.3, cw * 0.5, cw * 0.7, cw * 0.9];
+    let y2 = ch;
 
     let eachLine = new TrackLines(x1[i], y1, x2[i], y2)
     lines.push(eachLine);
@@ -186,11 +186,13 @@ for (let i = 0; i < numOfButtons; i++) {
 // keypress eventlistener
 document.addEventListener("keypress", function (event) {
   for (let i = 0; i < gameBlocks.length; i++) {
-    if (gameBlocks[i].y >= 0.8 * ch && gameBlocks[i].y <= 0.9 * ch) {
+    if (gameBlocks[i].y >= 0.85 * ch) {
       makeCorrectSound(event.key);
       buttonAnimation(event.key);
       addScore(10);
       console.log("Pressed!")
+    } else if (gameBlocks[i].y < 0.8 * ch) {
+      makeWrongSound(event.key);
     }
     // } else if (gameBlocks[i].y < 0.8 * ch || gameBlocks[i].y > 0.9 * ch) {
     //   makeWrongSound(event.key);
