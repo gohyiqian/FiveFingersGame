@@ -15,7 +15,23 @@ body {
     background-size:cover; /* Resize the background image to cover the entire container */
     /* background-color: #cccccc; */
     align-items: center;
-   }
+}
+
+.banner {
+    text-align: center;
+    color: #fff;
+    background: #3f51b5;
+    line-height: 40px;
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    font-family: monospace;
+    height: 40px;
+    opacity: .8;
+    display: flex;
+    transition: .5s
+}
 
 .row{
     justify-content: center;
@@ -37,6 +53,13 @@ body {
     padding:15px 1px;
 }
 
+.status{
+    position:relative;
+    display:block;
+    justify-content: center;
+    margin:1px;
+}
+
 .a{
     color:red;
 }
@@ -55,11 +78,6 @@ body {
 
 .g{
     color:purple;
-}
-
-.a:hover, .s:hover, .d:hover, .f:hover, .g:hover {
-    background-color:#00FFFF;
-    opacity: 0.7;
 }
 
 .pressed_a{
@@ -92,28 +110,10 @@ body {
     opacity: 0.7;
 }
 
-.banner {
-    text-align: center;
-    color: #fff;
-    background: #3f51b5;
-    line-height: 40px;
-    position: fixed;
-    left: 0;
-    top: 0;
-    right: 0;
-    font-family: monospace;
-    height: 40px;
-    opacity: .8;
-    display: flex;
-    transition: .5s
-}
+
 
 .container{
     align-items: center;
-}
-
-.timing{
-    margin-left: 25%;
 }
 
 #center {
@@ -170,3 +170,24 @@ li {
 h2{
     text-align: center;
 }
+
+@media screen and (max-width: 700px) {
+    .banner {
+        text-align: center;
+        color: #fff;
+        background: #3f51b5;
+        line-height: 40px;
+        position: fixed;
+        left: 0;
+        top: 0;
+        right: 0;
+        font-family: monospace;
+        height: 40px;
+        opacity: .8;
+        display: flex;
+        transition: .5s
+    }
+    .timing{
+        display:none;
+    }
+  }
