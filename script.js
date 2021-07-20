@@ -12,24 +12,38 @@ const cw = canvas.width = 380;
 const ch = canvas.height = 500;
 let gameBlocks = [];
 let lines = [];
+let content = document.getElementById('move');
+let gameStart;
 
-// creating a Grid for understanding
+content.addEventListener('click', function (e) {
+  if (content.innerHTML == "PRESS TO START" || content.innerHTML == "GAME OVER") {
+    gameStart = window.setInterval(animateGame, 500);
+    //document.getElementById('music').play();
+    content.innerHTML = "PRESS TO PAUSE";
+  } else {
+    //document.getElementById('music').pause();
+    window.clearInterval(gameStart);
+    content.innerHTML = "PRESS TO START";
+  }
+});
+
+
+// creating a Grid for reference
 // draw vertical lines
-// function createGrid() {
-//   for (let x = 0; x < ch; x += 38) {
-//     ctx.moveTo(x, 0);
-//     ctx.lineTo(x, ch);
-//   }
-//   //draw horizontal lines
-//   for (let y = 0; y < ch; y += 50) {
-//     ctx.moveTo(0, y);
-//     ctx.lineTo(ch, y);
-//   }
-
-//   ctx.strokeStyle = "#ddd";
-//   ctx.stroke();
-// }
-// createGrid()
+function createGrid() {
+  for (let x = 0; x < ch; x += 38) {
+    ctx.moveTo(x, 0);
+    ctx.lineTo(x, ch);
+  }
+  //draw horizontal lines
+  for (let y = 0; y < ch; y += 50) {
+    ctx.moveTo(0, y);
+    ctx.lineTo(ch, y);
+  }
+  ctx.strokeStyle = "lightgrey";
+  ctx.stroke();
+}
+createGrid()
 
 // let shutUpandDance = ['CCC C C C', 'CCC C C D', 'CCC C C C', 'CC GG E D CC'];
 // let dontStopBelievin = ['C E C DD E', 'CCCC GG E D', 'C E C DD E D C D E C'];
@@ -122,13 +136,10 @@ class Component {
     this.color = color;
     this.x = x;
     this.y = y;
-    this.incrementer = 50;
-
+    this.incrementer = 50; //stepsize
   }
   update() {
     this.y += this.incrementer;
-    // let ctx = myGameCanvas.context;
-    //this.y += this.incrementer;
     let grd = ctx.createLinearGradient(0, 0, 0, 500);
     grd.addColorStop(0, "transparent");
     grd.addColorStop(0.3, this.color);
@@ -168,7 +179,6 @@ class Component {
 //   }
 // }
 // createComponents(3);
-
 
 function createColorList(arr) {
   let colors = [];
@@ -267,7 +277,7 @@ class TrackLines {
     this.strokeStyle = strokeStyle;
   }
   drawLine() {
-    // let ctx = myGameCanvas.context;
+    ctx.strokeStyle = "grey"
     ctx.beginPath();
     ctx.setLineDash([20, 5, 5, 5]);
     ctx.moveTo(this.x1, this.y1);
@@ -325,20 +335,7 @@ console.log(gameBlocks.length)
 //animateGame()
 //setInterval(animateGame, 500); //every 1/10th of a second
 
-let content = document.getElementById('move');
-let gameStart;
 
-content.addEventListener('click', function (e) {
-  if (content.innerHTML == "PRESS TO START" || content.innerHTML == "GAME OVER") {
-    gameStart = window.setInterval(animateGame, 500);
-    //document.getElementById('music').play();
-    content.innerHTML = "PRESS TO PAUSE";
-  } else {
-    //document.getElementById('music').pause();
-    window.clearInterval(gameStart);
-    content.innerHTML = "PRESS TO START";
-  }
-});
 
 
 // const element = document.getElementById('key');

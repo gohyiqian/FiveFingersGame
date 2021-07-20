@@ -17,24 +17,24 @@ body {
     align-items: center;
     background: #36D1DC;
     /* fallback for old browsers */
-    background: -webkit-linear-gradient(to top, #5B86E5, #78f6ff);
+    background: -webkit-linear-gradient(to right #5B86E5,#78f6ff,#78f6ff,#5B86E5);
     /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to top, #5B86E5, #78f6ff);
+    background: linear-gradient(to right, #5B86E5,#78f6ff,#78f6ff,#5B86E5);
     /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
 .banner {
     text-align: center;
-    color: #fff;
-    background: #3f51b5;
+    color: black;
+    background: lightgrey;
     line-height: 40px;
     position: fixed;
     left: 0;
     top: 0;
     right: 0;
+    font-weight: bold;
     font-family: monospace;
     height: 40px;
-    opacity: .8;
     display: flex;
     transition: .5s
 }
