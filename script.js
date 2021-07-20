@@ -1,36 +1,118 @@
 'use strict'
 
-// define Canvas
+// const keys = document.querySelectorAll('#key');
+// keys.forEach(key => {
+//   key.addEventListener('load', () => textToSpeech("hello world!"))
+// })
+
 let canvas = document.createElement("canvas");
 document.body.insertBefore(canvas, document.body.childNodes[0]);
 let ctx = canvas.getContext("2d");
 const cw = canvas.width = 380;
 const ch = canvas.height = 500;
-
 let gameBlocks = [];
 let lines = [];
+
+// creating a Grid for understanding
+// draw vertical lines
+// function createGrid() {
+//   for (let x = 0; x < ch; x += 38) {
+//     ctx.moveTo(x, 0);
+//     ctx.lineTo(x, ch);
+//   }
+//   //draw horizontal lines
+//   for (let y = 0; y < ch; y += 50) {
+//     ctx.moveTo(0, y);
+//     ctx.lineTo(ch, y);
+//   }
+
+//   ctx.strokeStyle = "#ddd";
+//   ctx.stroke();
+// }
+// createGrid()
+
+// let shutUpandDance = ['CCC C C C', 'CCC C C D', 'CCC C C C', 'CC GG E D CC'];
+// let dontStopBelievin = ['C E C DD E', 'CCCC GG E D', 'C E C DD E D C D E C'];
+// let wakingUpInVegas = ['GG FF EE DD C E D C', 'CC CC CC CCC E D', 'GG FF EE DD C E D C', 'CC CC CC CCC E D C'];
+// let jingleBells = ['EEE EEE E G C D E', 'FFF FF EE EEE DD E D G', 'EEE EEE E G C D E', 'FFF FF EE EE GG F D C'];
+// let pianoMan = ['GGGG F E F E C', 'CCCC DD', 'E F GGGG F E F E C', 'CCC F E CC']
+let dontStopBelievin = [
+  'C', '', 'E', '', 'C', '', 'D', 'D', '', 'E',
+  'C', 'C', 'C', 'C', '', 'G', 'G', '', 'E', '', 'D',
+  'C', '', 'E', '', 'C', '', 'D', 'D', '', 'E',
+  '', 'D', '', 'C', '', 'D', '', 'E', '', 'C'
+]
+
+let shutUpandDance = [
+  'C', 'C', 'C', '', 'C', '', 'C', '', 'C', '',
+  'C', 'C', 'C', '', 'C', '', 'C', '', 'D', '',
+  'C', 'C', 'C', '', 'C', '', 'C', '', 'C', '',
+  'C', 'C', '', 'G', 'G', '', 'E', '', 'D', 'C', 'C'
+];
+
+// splice songs into arrays of 5 letters
+function spliceIntoFive(arr, chunkSize) {
+  const res = [];
+  while (arr.length > 0) {
+    const chunk = arr.splice(0, chunkSize);
+    res.push(chunk);
+  }
+  return res
+}
+let test = spliceIntoFive(shutUpandDance, 5)
+
+// sort the song letters arrays
+function prepList(input) {
+  let list = [];
+  const length = input.length; // this was added
+  for (let i = 0; i < length; i++) {
+    list.push(addSpace(test));
+    test.shift();
+  }
+  let merged = [].concat.apply([], list);
+  //console.log(merged);
+  //console.log(`# of items in merged: ${merged.length}`)
+  return merged;
+}
+
+let newSong = prepList(test);
+
+function addSpace(arr) {
+  let newList = []
+  for (let i = 0; i <= 5; i++) {
+    for (let j = 0; j <= 5; j++) {
+      // to refresh the x everytime as splice will alter original x
+      let x = ['', '', '', '']
+      if (arr[i][j] == 'C') {
+        x.splice(0, 0, arr[i][j]);
+        newList.push(x);
+      } else if (arr[i][j] == 'D') {
+        x.splice(1, 0, arr[i][j]);
+        newList.push(x);
+      } else if (arr[i][j] == 'E') {
+        x.splice(2, 0, arr[i][j]);
+        newList.push(x);
+      } else if (arr[i][j] == 'F') {
+        x.splice(3, 0, arr[i][j]);
+        newList.push(x);
+      } else if (arr[i][j] == 'G') {
+        x.splice(4, 0, arr[i][j]);
+        newList.push(x);
+      } else if (arr[i][j] == '') {
+        x.push('');
+        newList.push(x);
+      }
+    }
+    return newList
+  }
+}
+
 // function startScene() {
 // }
 
 // function instructionScene() {
 // }
 
-// object for canvas element
-// const myGameCanvas = {
-//   canvas: document.createElement("canvas"),
-//   start: function () {
-//     this.canvas.width = 400;
-//     this.canvas.height = 550;
-//     this.context = this.canvas.getContext("2d");
-//     document.body.insertBefore(this.canvas, document.body.childNodes[0]);
-//     //this.frameNum = 0;
-//     // window.setInterval(function, milliseconds);
-//     //this.interval = setInterval(animateGame, 10); //update every 10th millisec => 100 times per sec
-//   },
-//   clear: function () {
-//     this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
-//   }
-// }
 
 // create a class for constructing components
 class Component {
@@ -40,35 +122,140 @@ class Component {
     this.color = color;
     this.x = x;
     this.y = y;
-    this.incrementer = Math.floor(Math.random() * 15);
+    this.incrementer = 50;
+
   }
   update() {
     this.y += this.incrementer;
     // let ctx = myGameCanvas.context;
+    //this.y += this.incrementer;
     let grd = ctx.createLinearGradient(0, 0, 0, 500);
-    grd.addColorStop(0, "white");
+    grd.addColorStop(0, "transparent");
+    grd.addColorStop(0.3, this.color);
     grd.addColorStop(1, this.color);
     ctx.fillStyle = grd;
     ctx.fillRect(this.x, this.y, this.width, this.height);
   }
 }
 
-// constructing some compoments
-function createComponents(num) {
-  for (let i = 0; i < num; i++) {
-    let width = 40;
-    let height = 40;
-    let colors = ['red', 'blue', 'green', 'yellow', 'purple'];
-    let x = [cw * 0.1 - 20, cw * 0.3 - 20, cw * 0.5 - 20, cw * 0.7 - 20, cw * 0.9 - 20];
-    let y = 10;
+//constructing some compoments
+// function createComponents(num) {
+//   for (let i = 0; i < num; i++) {
+//     for (let j = 0; j < num; j++) {
+//       let width = 40;
+//       let height = 40;
+//       let colors = [
+//         ['red', 'transparent', 'transparent', 'transparent', 'transparent'],
+//         ['red', 'transparent', 'transparent', 'transparent', 'transparent'],
+//         ['transparent', 'blue', 'transparent', 'transparent', 'transparent']
+//       ];
+//       let x = [
+//         [cw * 0.1 - 20, cw * 0.3 - 20, cw * 0.5 - 20, cw * 0.7 - 20, cw * 0.9 - 20],
+//         [cw * 0.1 - 20, cw * 0.3 - 20, cw * 0.5 - 20, cw * 0.7 - 20, cw * 0.9 - 20],
+//         [cw * 0.1 - 20, cw * 0.3 - 20, cw * 0.5 - 20, cw * 0.7 - 20, cw * 0.9 - 20]
+//       ];
+//       let y = [
+//         [250, 200, 150, 100, 50],
+//         [250, 200, 150, 100, 50],
+//         [250, 200, 150, 100, 50]
+//       ];
 
-    let eachBlock = new Component(width, height, colors[i], x[i], y)
-    gameBlocks.push(eachBlock);
+//       let eachBlock = new Component(width, height, colors[i][j], x[i][j], y[i][j])
+//       gameBlocks.push(eachBlock);
+//       console.log(eachBlock)
+//     }
+//     //requestAnimationFrame(createComponents);
+//   }
+// }
+// createComponents(3);
+
+
+function createColorList(arr) {
+  let colors = [];
+  for (let i = 0; i < arr.length; i++) {
+    //let colors = ['red', 'blue', 'green', 'yellow', 'purple'];
+    if (arr[i] == 'C') {
+      colors.push('red');
+    } else if (arr[i] == 'D') {
+      colors.push('blue');
+    } else if (arr[i] == 'E') {
+      colors.push('green');
+    } else if (arr[i] == 'F') {
+      colors.push('yellow');
+    } else if (arr[i] == 'G') {
+      colors.push('purple');
+    } else if (arr[i] == '') {
+      colors.push('transparent');
+    }
   }
-  //requestAnimationFrame(createComponents);
+  return colors;
 }
 
-createComponents(5);
+const newArr = newSong.map(createColorList);
+console.log(newArr)
+console.log(newArr.length)
+
+function createPosX(arr) {
+  let cw = 380;
+  let posX = [];
+  for (let i = 0; i < arr.length; i++) {
+    //let colors = ['red', 'blue', 'green', 'yellow', 'purple'];
+    if (arr[i] == 'C') {
+      posX.push(cw * 0.1 - 20);
+    } else if (arr[i] == 'D') {
+      posX.push(cw * 0.3 - 20);
+    } else if (arr[i] == 'E') {
+      posX.push(cw * 0.5 - 20);
+    } else if (arr[i] == 'F') {
+      posX.push(cw * 0.7 - 20);
+    } else if (arr[i] == 'G') {
+      posX.push(cw * 0.9 - 20);
+    } else if (arr[i] == '') {
+      posX.push(cw * 0.9 - 20);
+    }
+  }
+  return posX
+}
+
+const xPos = newSong.map(createPosX)
+console.log(xPos)
+console.log(xPos.length)
+
+
+const input = [
+  [200, 200, 200, 200, 200],
+  [150, 150, 150, 150, 150],
+  [100, 100, 100, 100, 100],
+  [50, 50, 50, 50, 50],
+  [0, 0, 0, 0, 0],
+]
+
+function fillArray(value, len) {
+  let posY = [];
+  for (let i = 0; i < len; i++) {
+    posY.push(value);
+  }
+  let merged = [].concat.apply([], posY)
+  return merged;
+}
+
+const yPos = fillArray(input, 41)
+// console.log(yPos)
+// console.log(yPos.length)
+
+let width = 40;
+let height = 40;
+
+for (let i = 0; i < newArr.length; i++) {
+  for (let j = 0; j < newArr[i].length; j++) {
+    let eachBlock = new Component(width, height, newArr[i][j], xPos[i][j], yPos[i][j])
+    gameBlocks.push(eachBlock);
+  }
+}
+
+
+// console.log(gameBlocks)
+// console.log(gameBlocks.length)
 
 // create a class for constructing tracklines
 class TrackLines {
@@ -89,7 +276,7 @@ class TrackLines {
     ctx.closePath();
   }
 }
-// constructing some tracklines
+//constructing some tracklines
 function createLines(num) {
   for (let i = 0; i < num; i++) {
     let x1 = [cw * 0.1, cw * 0.3, cw * 0.5, cw * 0.7, cw * 0.9];
@@ -120,14 +307,12 @@ function animateGame() {
   // myGameCanvas.clear();
   // myGameCanvas.start();
   ctx.clearRect(0, 0, cw, ch);
-
   for (let i = 0; i < gameBlocks.length; i++) {
-    gameBlocks[i].y += 1;
+    //gameBlocks[i].y += 50;
     gameBlocks[i].update();
-    if (gameBlocks[i].y > 0.9 * ch) {
+    if (gameBlocks[i].y > ch) {
       gameBlocks[i].y = 0;
     }
-
   }
 
   for (let i = 0; i < lines.length; i++) {
@@ -135,9 +320,26 @@ function animateGame() {
   }
   //requestAnimationFrame(animateGame);
 }
-
+console.log(gameBlocks)
+console.log(gameBlocks.length)
 //animateGame()
-setInterval(animateGame, 100); //every 1/10th of a second
+//setInterval(animateGame, 500); //every 1/10th of a second
+
+let content = document.getElementById('move');
+let gameStart;
+
+content.addEventListener('click', function (e) {
+  if (content.innerHTML == "PRESS TO START" || content.innerHTML == "GAME OVER") {
+    gameStart = window.setInterval(animateGame, 500);
+    //document.getElementById('music').play();
+    content.innerHTML = "PRESS TO PAUSE";
+  } else {
+    //document.getElementById('music').pause();
+    window.clearInterval(gameStart);
+    content.innerHTML = "PRESS TO START";
+  }
+});
+
 
 // const element = document.getElementById('key');
 // let start;
@@ -161,82 +363,89 @@ setInterval(animateGame, 100); //every 1/10th of a second
 // gameSpeed += randomSpeed();
 // document.getElementById("speed").innerHTML = gameSpeed
 
-setInterval(myTimer, 0);
+
 
 // Add Time
 function myTimer() {
   const d = new Date();
   document.getElementById("time").innerHTML = d.toLocaleTimeString('it-IT');
 }
-
+setInterval(myTimer, 0);
 // EventListeners
 let numOfButtons = document.querySelectorAll("#key").length;
 
-// mouse-click eventlistener
-for (let i = 0; i < numOfButtons; i++) {
-  document.querySelectorAll("#key")[i].addEventListener("click", function (event) {
-    for (let i = 0; i < gameBlocks.length; i++) {
-      let buttonInnerHTML = this.innerHTML;
-      if (gameBlocks[i].y >= 0.85 * ch) {
-        makeCorrectSound(buttonInnerHTML);
-        buttonAnimation(buttonInnerHTML);
-        addScore(10)
-      } else if (gameBlocks[i].y < 0.8 * ch) {
-        makeWrongSound(buttonInnerHTML);
-      }
-    }
-  }, false);
-}
+//mouse - click eventlistener
+// for (let i = 0; i < numOfButtons; i++) {
+//   document.querySelectorAll("#key")[i].addEventListener("click", function (event) {
+//     for (let i = 0; i < gameBlocks.length; i++) {
+//       let buttonInnerHTML = this.innerHTML;
+//       if (gameBlocks[i].y >= 0.85 * ch && gameBlocks[i].y <= ch) {
+//         makeCorrectSound(buttonInnerHTML);
+//         buttonAnimation(buttonInnerHTML);
+//         addScore(10)
+//       } else if (gameBlocks[i].y < 0.85 * ch && gameBlocks[i].y > ch) {
+//         makeWrongSound(buttonInnerHTML);
+
+//       }
+//     }
+//   }, false);
+// }
 
 // keypress eventlistener
 document.addEventListener("keypress", function (event) {
   for (let i = 0; i < gameBlocks.length; i++) {
-    if (gameBlocks[i].y >= 0.85 * ch) {
+    if (gameBlocks[i].y >= 0.85 * ch && gameBlocks[i].y <= ch) {
       makeCorrectSound(event.key);
       buttonAnimation(event.key);
       addScore(10);
-      console.log(event.key)
-    } else if (gameBlocks[i].y < 0.8 * ch) {
-      makeWrongSound(event.key);
+      console.log(`${event.key}: correct`)
+      // } else makeWrongSound(event.key);
+      // console.log(`${event.key}: wrong`)
+    } else if (gameBlocks[i].y < 0.8 * ch || gameBlocks[i].y > 0.9 * ch) {
+      //makeWrongSound(event.key);
+      addScore(10);
     }
-    // } else if (gameBlocks[i].y < 0.8 * ch || gameBlocks[i].y > 0.9 * ch) {
-    //   makeWrongSound(event.key);
-    //   addScore(-10);
-    // }
   }
 }, false);
+
+
+// const keys = document.querySelectorAll('#key');
+// keys.forEach(key => {
+//   key.addEventListener('click', () => makeCorrectSound(key.innerHTML))
+// })
+
+
 
 function makeCorrectSound(key) {
 
   switch (key) {
     case "a":
-      let btnA = new Audio("sounds/correctSound.mp3");
+      let btnA = new Audio("notes/notes_C4.mp3");
       btnA.play();
       break;
 
     case "s":
-      let btnB = new Audio("sounds/correctSound.mp3");
+      let btnB = new Audio("notes/notes_D4.mp3");
       btnB.play();
       break;
 
     case "d":
-      let btnD = new Audio('sounds/correctSound.mp3');
+      let btnD = new Audio('notes/notes_E4.mp3');
       btnD.play();
       break;
 
     case "f":
-      let btnF = new Audio('sounds/correctSound.mp3');
+      let btnF = new Audio('notes/notes_F4.mp3');
       btnF.play();
       break;
 
     case "g":
-      let btnH = new Audio('sounds/correctSound.mp3');
+      let btnH = new Audio('notes/notes_G4.mp3');
       btnH.play();
       break;
 
     default:
       console.log(key);
-
   }
 }
 
@@ -270,7 +479,6 @@ function makeWrongSound(key) {
 
     default:
       console.log(key);
-
   }
 }
 

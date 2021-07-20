@@ -1,12 +1,14 @@
 ![Guitar Image](/images/guitar.jpg)
 
-# My Mini Game
+# Five Keys Songs
 [Try the Game Here](https://gohyiqian.github.io/GA-Project1/)
 ## An Overview
-Hello.
+Hello!
 
-This is a simple adaptation of the popular *Guitar Hero* Game first released in 2005.
-Players will time the descending target and receive points when they keypress or mouseclick 'A','S','D','F','G' at the correct timing.
+Five Keys Songs is specially designed for people who do not have much music talent, like myself, but aspire to be able to play some simple piano notes to impress your friends and family. Songs that can be played using just 5 keys, namely 'C','D','E','F' and 'G', are being selected for this game so that anyone with no piano background can pick it up easily!
+
+This game is therefore a simple adaptation of the popular *Guitar Hero* and *Piano Tiles* games.
+Players will time the descending target and receive points when they keypress 'A','S','D','F','G' or mouseclick at the correct timing.
 
 [Guitar Image](/images/screenshot.jpg)
 Format: ![Alt Text](url)
@@ -24,7 +26,7 @@ Basic Animation Steps using canvas elements:
 
 ## Some To-Do List I have set for myself
 
-
+- [ ] Create Wireframe
 - [ ] Add Start Scene
 - [ ] Add How to Play Scene
 - [ ] Add Playing Scene
@@ -33,10 +35,14 @@ Basic Animation Steps using canvas elements:
 - [x] Add mouse-click & keypress eventlisteners
 - [x] Add corresponding colors when button is activated
 - [x] Add some music effects when button is activated correctly vs wrongly
-- [ ] Add requestAnimationFrame function to loop animations
-- [ ] Define a threshold for 'correctness'
+- [x] Add requestAnimationFrame or setInterval function to loop animations
+- [x] Define a threshold for 'correct' button hit
 - [ ] Add scoring based of # of correct timing of activating the buttons
 - [ ] Add gradient trail for movement
+- [ ] Add songs that is broken down into 5 notes
+- [ ] Add progress bar
+- [ ] Add ability to save game progress
+
 
 ## Implementation
 
