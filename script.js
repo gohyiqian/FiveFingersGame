@@ -13,16 +13,18 @@ const ch = canvas.height = 500;
 let gameBlocks = [];
 let lines = [];
 let content = document.getElementById('move');
-let gameStart;
+let gameStatus;
 
 content.addEventListener('click', function (e) {
   if (content.innerHTML == "PRESS TO START" || content.innerHTML == "GAME OVER") {
-    gameStart = window.setInterval(animateGame, 500);
+    gameStatus = window.setInterval(animateGame, 10);
+    //gameStatus = animateGame();
     //document.getElementById('music').play();
     content.innerHTML = "PRESS TO PAUSE";
   } else {
     //document.getElementById('music').pause();
-    window.clearInterval(gameStart);
+    window.clearInterval(gameStatus);
+    //window.cancelAnimationFrame(gameStatus)
     content.innerHTML = "PRESS TO START";
   }
 });
@@ -41,10 +43,17 @@ function createGrid() {
     ctx.lineTo(ch, y);
   }
   ctx.strokeStyle = "lightgrey";
+  ctx.setLineDash([10, 5]);
   ctx.stroke();
 }
 createGrid()
 
+function createText() {
+  ctx.font = "20px Georgia";
+  let txt = "Press button below to begin!"
+  ctx.fillText(txt, (cw - ctx.measureText(txt).width) * 0.5, 250);
+}
+createText()
 // let shutUpandDance = ['CCC C C C', 'CCC C C D', 'CCC C C C', 'CC GG E D CC'];
 // let dontStopBelievin = ['C E C DD E', 'CCCC GG E D', 'C E C DD E D C D E C'];
 // let wakingUpInVegas = ['GG FF EE DD C E D C', 'CC CC CC CCC E D', 'GG FF EE DD C E D C', 'CC CC CC CCC E D C'];
@@ -73,7 +82,7 @@ function spliceIntoFive(arr, chunkSize) {
   }
   return res
 }
-let test = spliceIntoFive(shutUpandDance, 5)
+let test = spliceIntoFive(dontStopBelievin, 5)
 
 // sort the song letters arrays
 function prepList(input) {
@@ -90,6 +99,7 @@ function prepList(input) {
 }
 
 let newSong = prepList(test);
+console.log(newSong.length)
 
 function addSpace(arr) {
   let newList = []
@@ -130,14 +140,17 @@ function addSpace(arr) {
 
 // create a class for constructing components
 class Component {
-  constructor(width, height, color, x, y) {
+  constructor(x, y, width, height, color) {
+    this.x = x;
+    this.y = y;
     this.width = width;
     this.height = height;
     this.color = color;
-    this.x = x;
-    this.y = y;
-    this.incrementer = 50; //stepsize
+
+    //this.incrementer = Math.floor(Math.random() * 50 + 50)
+    this.incrementer = 1; //stepsize
   }
+
   update() {
     this.y += this.incrementer;
     let grd = ctx.createLinearGradient(0, 0, 0, 500);
@@ -146,40 +159,70 @@ class Component {
     grd.addColorStop(1, this.color);
     ctx.fillStyle = grd;
     ctx.fillRect(this.x, this.y, this.width, this.height);
+    //ctx.clearRect(this.x, this.y + 10, this.width, this.height);
   }
 }
 
 //constructing some compoments
 // function createComponents(num) {
 //   for (let i = 0; i < num; i++) {
-//     for (let j = 0; j < num; j++) {
-//       let width = 40;
-//       let height = 40;
+//     for (let j = 0; j < 5; j++) {
+//       let width = 50;
+//       let height = 50;
 //       let colors = [
 //         ['red', 'transparent', 'transparent', 'transparent', 'transparent'],
 //         ['red', 'transparent', 'transparent', 'transparent', 'transparent'],
-//         ['transparent', 'blue', 'transparent', 'transparent', 'transparent']
+//         ['red', 'transparent', 'transparent', 'transparent', 'transparent'],
+//         ['transparent', 'transparent', 'transparent', 'yellow', 'transparent'],
+//         ['transparent', 'transparent', 'transparent', 'transparent', 'purple'],
+//         ['transparent', 'transparent', 'transparent', 'transparent', 'purple'],
+//         ['transparent', 'transparent', 'green', 'transparent', 'transparent'],
+//         ['transparent', 'transparent', 'transparent', 'transparent', 'purple'],
+//         ['transparent', 'transparent', 'transparent', 'transparent', 'purple'],
+//         ['transparent', 'transparent', 'green', 'transparent', 'transparent'],
+//         ['transparent', 'blue', 'transparent', 'transparent', 'transparent'],
+//         ['transparent', 'blue', 'transparent', 'transparent', 'transparent'],
+
 //       ];
 //       let x = [
-//         [cw * 0.1 - 20, cw * 0.3 - 20, cw * 0.5 - 20, cw * 0.7 - 20, cw * 0.9 - 20],
-//         [cw * 0.1 - 20, cw * 0.3 - 20, cw * 0.5 - 20, cw * 0.7 - 20, cw * 0.9 - 20],
-//         [cw * 0.1 - 20, cw * 0.3 - 20, cw * 0.5 - 20, cw * 0.7 - 20, cw * 0.9 - 20]
+//         [cw * 0.1 - 25, cw * 0.3 - 25, cw * 0.5 - 25, cw * 0.7 - 25, cw * 0.9 - 25],
+//         [cw * 0.1 - 25, cw * 0.3 - 25, cw * 0.5 - 25, cw * 0.7 - 25, cw * 0.9 - 25],
+//         [cw * 0.1 - 25, cw * 0.3 - 25, cw * 0.5 - 25, cw * 0.7 - 25, cw * 0.9 - 25],
+//         [cw * 0.1 - 25, cw * 0.3 - 25, cw * 0.5 - 25, cw * 0.7 - 25, cw * 0.9 - 25],
+//         [cw * 0.1 - 25, cw * 0.3 - 25, cw * 0.5 - 25, cw * 0.7 - 25, cw * 0.9 - 25],
+//         [cw * 0.1 - 25, cw * 0.3 - 25, cw * 0.5 - 25, cw * 0.7 - 25, cw * 0.9 - 25],
+//         [cw * 0.1 - 25, cw * 0.3 - 25, cw * 0.5 - 25, cw * 0.7 - 25, cw * 0.9 - 25],
+//         [cw * 0.1 - 25, cw * 0.3 - 25, cw * 0.5 - 25, cw * 0.7 - 25, cw * 0.9 - 25],
+//         [cw * 0.1 - 25, cw * 0.3 - 25, cw * 0.5 - 25, cw * 0.7 - 25, cw * 0.9 - 25],
+//         [cw * 0.1 - 25, cw * 0.3 - 25, cw * 0.5 - 25, cw * 0.7 - 25, cw * 0.9 - 25],
+//         [cw * 0.1 - 25, cw * 0.3 - 25, cw * 0.5 - 25, cw * 0.7 - 25, cw * 0.9 - 25],
+//         [cw * 0.1 - 25, cw * 0.3 - 25, cw * 0.5 - 25, cw * 0.7 - 25, cw * 0.9 - 25]
 //       ];
 //       let y = [
-//         [250, 200, 150, 100, 50],
-//         [250, 200, 150, 100, 50],
-//         [250, 200, 150, 100, 50]
+//         [0, 0, 0, 0, 0],
+//         [-60, -60, -60, -60, -60],
+//         [-120, -120, -120, -120, -120],
+//         [-180, -180, -180, -180, -180],
+//         [-240, -240, -240, -240, -240],
+//         [-300, -300, -300, -300, -300],
+//         [-360, -360, -360, -360, -360],
+//         [-420, -420, -420, -420, -420],
+//         [-480, -480, -480, -480, -480],
+//         [-540, -540, -540, -540, -540],
+//         [-600, -600, -600, -600, -600],
+//         [-660, -660, -660, -660, -660]
 //       ];
 
-//       let eachBlock = new Component(width, height, colors[i][j], x[i][j], y[i][j])
+//       let eachBlock = new Component(x[i][j], y[i][j], width, height, colors[i][j])
 //       gameBlocks.push(eachBlock);
 //       console.log(eachBlock)
 //     }
 //     //requestAnimationFrame(createComponents);
 //   }
 // }
-// createComponents(3);
+// createComponents(12);
 
+// Generate ColourList for constructing components
 function createColorList(arr) {
   let colors = [];
   for (let i = 0; i < arr.length; i++) {
@@ -201,67 +244,100 @@ function createColorList(arr) {
   return colors;
 }
 
-const newArr = newSong.map(createColorList);
-console.log(newArr)
-console.log(newArr.length)
+const newColorArr = newSong.map(createColorList);
+console.log(newColorArr)
+console.log(newColorArr.length)
 
-function createPosX(arr) {
-  let cw = 380;
-  let posX = [];
-  for (let i = 0; i < arr.length; i++) {
-    //let colors = ['red', 'blue', 'green', 'yellow', 'purple'];
-    if (arr[i] == 'C') {
-      posX.push(cw * 0.1 - 20);
-    } else if (arr[i] == 'D') {
-      posX.push(cw * 0.3 - 20);
-    } else if (arr[i] == 'E') {
-      posX.push(cw * 0.5 - 20);
-    } else if (arr[i] == 'F') {
-      posX.push(cw * 0.7 - 20);
-    } else if (arr[i] == 'G') {
-      posX.push(cw * 0.9 - 20);
-    } else if (arr[i] == '') {
-      posX.push(cw * 0.9 - 20);
-    }
-  }
-  return posX
-}
+// Generate xPos for constructing components
+// function createPosX(arr) {
+//   let cw = 380;
+//   let posX = [];
+//   for (let i = 0; i < arr.length; i++) {
+//     //let colors = ['red', 'blue', 'green', 'yellow', 'purple'];
+//     if (arr[i] == 'C') {
+//       posX.push(cw * 0.1 - 25);
+//     } else if (arr[i] == 'D') {
+//       posX.push(cw * 0.3 - 25);
+//     } else if (arr[i] == 'E') {
+//       posX.push(cw * 0.5 - 25);
+//     } else if (arr[i] == 'F') {
+//       posX.push(cw * 0.7 - 25);
+//     } else if (arr[i] == 'G') {
+//       posX.push(cw * 0.9 - 25);
+//     } else if (arr[i] == '') {
+//       posX.push(cw * 0.9 - 25);
+//     }
+//   }
+//   return posX
+// }
 
-const xPos = newSong.map(createPosX)
-console.log(xPos)
-console.log(xPos.length)
+// const xPos = newSong.map(createPosX)
+// console.log(xPos)
+// console.log(xPos.length)
 
-
-const input = [
-  [200, 200, 200, 200, 200],
-  [150, 150, 150, 150, 150],
-  [100, 100, 100, 100, 100],
-  [50, 50, 50, 50, 50],
-  [0, 0, 0, 0, 0],
+// fixed x position every five components
+const x_input = [
+  [cw * 0.1 - 25, cw * 0.3 - 25, cw * 0.5 - 25, cw * 0.7 - 25, cw * 0.9 - 25],
+  [cw * 0.1 - 25, cw * 0.3 - 25, cw * 0.5 - 25, cw * 0.7 - 25, cw * 0.9 - 25],
+  [cw * 0.1 - 25, cw * 0.3 - 25, cw * 0.5 - 25, cw * 0.7 - 25, cw * 0.9 - 25],
+  [cw * 0.1 - 25, cw * 0.3 - 25, cw * 0.5 - 25, cw * 0.7 - 25, cw * 0.9 - 25],
+  [cw * 0.1 - 25, cw * 0.3 - 25, cw * 0.5 - 25, cw * 0.7 - 25, cw * 0.9 - 25]
 ]
 
+// Generating xPos for constructing components
 function fillArray(value, len) {
-  let posY = [];
+  let posX = [];
   for (let i = 0; i < len; i++) {
-    posY.push(value);
+    posX.push(value);
   }
-  let merged = [].concat.apply([], posY)
+  let merged = [].concat.apply([], posX)
   return merged;
 }
+const xPos = fillArray(x_input, newSong.length)
 
-const yPos = fillArray(input, 41)
+// Generating yPos for constructing components
+let startPosY = [0, 0, 0, 0, 0]
+
+function updatePosY(input) {
+  return input - 60;
+}
+
+function generatePosY() {
+  let allPosY = []
+  for (let i = 0; i < newSong.length; i++) {
+    let newArray = startPosY.map(updatePosY)
+    startPosY = newArray
+    allPosY.push(newArray)
+  }
+  return allPosY
+}
+let yPos = generatePosY();
+console.log(yPos)
+
+// Generating yPos for constructing components
+// function fillArray(value, len) {
+//   let posY = [];
+//   for (let i = 0; i < len; i++) {
+//     posY.push(value);
+//   }
+//   let merged = [].concat.apply([], posY)
+//   return merged;
+// }
+// const yPos = fillArray(y_input, newSong.length)
 // console.log(yPos)
 // console.log(yPos.length)
 
-let width = 40;
-let height = 40;
-
-for (let i = 0; i < newArr.length; i++) {
-  for (let j = 0; j < newArr[i].length; j++) {
-    let eachBlock = new Component(width, height, newArr[i][j], xPos[i][j], yPos[i][j])
-    gameBlocks.push(eachBlock);
+function createComponents() {
+  let width = 50;
+  let height = 50;
+  for (let i = 0; i < newSong.length; i++) {
+    for (let j = 0; j < 5; j++) {
+      let eachBlock = new Component(xPos[i][j], yPos[i][j], width, height, newColorArr[i][j])
+      gameBlocks.push(eachBlock);
+    }
   }
 }
+createComponents();
 
 
 // console.log(gameBlocks)
@@ -289,9 +365,9 @@ class TrackLines {
 //constructing some tracklines
 function createLines(num) {
   for (let i = 0; i < num; i++) {
-    let x1 = [cw * 0.1, cw * 0.3, cw * 0.5, cw * 0.7, cw * 0.9];
+    let x1 = [cw * 0.2, cw * 0.4, cw * 0.6, cw * 0.8, cw];
     let y1 = 0;
-    let x2 = [cw * 0.1, cw * 0.3, cw * 0.5, cw * 0.7, cw * 0.9];
+    let x2 = [cw * 0.2, cw * 0.4, cw * 0.6, cw * 0.8, cw];
     let y2 = ch;
 
     let eachLine = new TrackLines(x1[i], y1, x2[i], y2)
@@ -300,19 +376,7 @@ function createLines(num) {
 }
 createLines(5);
 
-
-// maybe can input as array of digits that represent different songs
-// function randomSpeed() {
-//   let power = Math.floor(Math.random() * 3)
-//   console.log(power)
-//   let num = Math.floor(Math.random() * 5 + power)
-//   console.log(num)
-//   return num
-// }
-// randomSpeed()
-
-
-
+// animate
 function animateGame() {
   // myGameCanvas.clear();
   // myGameCanvas.start();
@@ -321,8 +385,9 @@ function animateGame() {
     //gameBlocks[i].y += 50;
     gameBlocks[i].update();
     if (gameBlocks[i].y > ch) {
-      gameBlocks[i].y = 0;
+      gameBlocks[i].y = -60 * newSong.length;
     }
+
   }
 
   for (let i = 0; i < lines.length; i++) {
@@ -332,7 +397,7 @@ function animateGame() {
 }
 console.log(gameBlocks)
 console.log(gameBlocks.length)
-//animateGame()
+
 //setInterval(animateGame, 500); //every 1/10th of a second
 
 
@@ -388,22 +453,22 @@ let numOfButtons = document.querySelectorAll("#key").length;
 //   }, false);
 // }
 
-// keypress eventlistener
-document.addEventListener("keypress", function (event) {
-  for (let i = 0; i < gameBlocks.length; i++) {
-    if (gameBlocks[i].y >= 0.85 * ch && gameBlocks[i].y <= ch) {
-      makeCorrectSound(event.key);
-      buttonAnimation(event.key);
-      addScore(10);
-      console.log(`${event.key}: correct`)
-      // } else makeWrongSound(event.key);
-      // console.log(`${event.key}: wrong`)
-    } else if (gameBlocks[i].y < 0.8 * ch || gameBlocks[i].y > 0.9 * ch) {
-      //makeWrongSound(event.key);
-      addScore(10);
-    }
-  }
-}, false);
+// // keypress eventlistener
+// document.addEventListener("keydown", function (event) {
+//   for (let i = 0; i < gameBlocks.length; i++) {
+//     if (gameBlocks[i].y >= 0.85 * ch || gameBlocks[i].y <= ch) {
+//       makeCorrectSound(event.key);
+//       buttonAnimation(event.key);
+//       addScore(1);
+//       console.log(`${event.key}: correct`)
+//       // } else makeWrongSound(event.key);
+//       // console.log(`${event.key}: wrong`)
+//     } else if (gameBlocks[i].y < 0.8 * ch && gameBlocks[i].y > 0.9 * ch) {
+//       //makeWrongSound(event.key);
+//       addScore(1);
+//     }
+//   }
+// }, false);
 
 
 // const keys = document.querySelectorAll('#key');
