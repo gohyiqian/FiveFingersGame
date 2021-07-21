@@ -397,21 +397,21 @@ setInterval(myTimer, 0);
 let numOfButtons = document.querySelectorAll("#key").length;
 
 //mouse - click eventlistener
-// for (let i = 0; i < numOfButtons; i++) {
-//   document.querySelectorAll("#key")[i].addEventListener("click", function (event) {
-//     for (let i = 0; i < gameBlocks.length; i++) {
-//       let buttonInnerHTML = this.innerHTML;
-//       if (gameBlocks[i].y >= 0.85 * ch && gameBlocks[i].y <= ch) {
-//         makeCorrectSound(buttonInnerHTML);
-//         buttonAnimation(buttonInnerHTML);
-//         addScore(10)
-//       } else if (gameBlocks[i].y < 0.85 * ch && gameBlocks[i].y > ch) {
-//         makeWrongSound(buttonInnerHTML);
+for (let i = 0; i < numOfButtons; i++) {
+  document.querySelectorAll("#key")[i].addEventListener("click", function (event) {
+    for (let i = 0; i < 1; i++) {
+      let buttonInnerHTML = this.innerHTML;
+      if (gameBlocks[i].y >= 0.85 * ch || gameBlocks[i].y <= ch) {
+        makeCorrectSound(buttonInnerHTML);
+        buttonAnimation(buttonInnerHTML);
+        addScore(1)
+      } else if (gameBlocks[i].y < 0.8 * ch && gameBlocks[i].y > 0.9 * ch) {
+        makeWrongSound(buttonInnerHTML);
 
-//       }
-//     }
-//   }, false);
-// }
+      }
+    }
+  }, false);
+}
 
 // keypress eventlistener
 document.addEventListener("keydown", function (event) {
