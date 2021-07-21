@@ -147,6 +147,20 @@ body {
     line-height: 50px;
 }
 
+#switch {
+    background-color: gold;
+    font-size: 16px;
+    font-weight: bold;
+    border: 5px solid #333;
+    border-radius: 10px;
+    outline: none;
+    position:relative;
+    display:block;
+    margin:10px auto;
+    text-align: center;
+    justify-content: center;
+}
+
 #move {
     background-color: gold;
     font-size: 16px;
@@ -156,14 +170,14 @@ body {
     outline: none;
     position:relative;
     display:block;
-    margin:30px auto;
+    margin:25px auto;
 }
 
-#move:hover {
-    background-color: coral;
+#move:hover, #switch:hover {
+    background-color: rgb(255, 154, 117);
 }
 
-#move:active {
+#move:active, #switch:hover {
     background-color: yellowgreen;
 }
 

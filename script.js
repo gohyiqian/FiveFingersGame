@@ -24,7 +24,9 @@ content.addEventListener('click', function (e) {
   }
 });
 
-
+// let gameSpeed = 0;
+// gameSpeed += randomSpeed();
+document.getElementById("speed").innerHTML = '15 ms';
 
 // creating a Grid for reference
 // draw vertical lines
@@ -177,7 +179,6 @@ class Component {
   }
 }
 
-//constructing some compoments
 // function createComponents(num) {
 //   for (let i = 0; i < num; i++) {
 //     for (let j = 0; j < 5; j++) {
@@ -191,8 +192,6 @@ class Component {
 //         ['transparent', 'transparent', 'transparent', 'transparent', 'purple'],
 //         ['transparent', 'transparent', 'transparent', 'transparent', 'purple'],
 //         ['transparent', 'transparent', 'green', 'transparent', 'transparent'],
-//         ['transparent', 'transparent', 'transparent', 'transparent', 'purple'],
-//         ['transparent', 'transparent', 'transparent', 'transparent', 'purple'],
 //         ['transparent', 'transparent', 'green', 'transparent', 'transparent'],
 //         ['transparent', 'blue', 'transparent', 'transparent', 'transparent'],
 //         ['transparent', 'blue', 'transparent', 'transparent', 'transparent'],
@@ -209,8 +208,6 @@ class Component {
 //         [cw * 0.1 - 25, cw * 0.3 - 25, cw * 0.5 - 25, cw * 0.7 - 25, cw * 0.9 - 25],
 //         [cw * 0.1 - 25, cw * 0.3 - 25, cw * 0.5 - 25, cw * 0.7 - 25, cw * 0.9 - 25],
 //         [cw * 0.1 - 25, cw * 0.3 - 25, cw * 0.5 - 25, cw * 0.7 - 25, cw * 0.9 - 25],
-//         [cw * 0.1 - 25, cw * 0.3 - 25, cw * 0.5 - 25, cw * 0.7 - 25, cw * 0.9 - 25],
-//         [cw * 0.1 - 25, cw * 0.3 - 25, cw * 0.5 - 25, cw * 0.7 - 25, cw * 0.9 - 25]
 //       ];
 //       let y = [
 //         [0, 0, 0, 0, 0],
@@ -223,18 +220,16 @@ class Component {
 //         [-420, -420, -420, -420, -420],
 //         [-480, -480, -480, -480, -480],
 //         [-540, -540, -540, -540, -540],
-//         [-600, -600, -600, -600, -600],
-//         [-660, -660, -660, -660, -660]
 //       ];
 
 //       let eachBlock = new Component(x[i][j], y[i][j], width, height, colors[i][j])
 //       gameBlocks.push(eachBlock);
-//       console.log(eachBlock)
+//       //console.log(eachBlock)
 //     }
 //     //requestAnimationFrame(createComponents);
 //   }
 // }
-// createComponents(12);
+// createComponents(10);
 
 // Generate ColourList for constructing components
 function createColorList(arr) {
@@ -262,33 +257,8 @@ const newColorArr = newSong.map(createColorList);
 console.log(newColorArr)
 console.log(newColorArr.length)
 
-// Generate xPos for constructing components
-// function createPosX(arr) {
-//   let cw = 380;
-//   let posX = [];
-//   for (let i = 0; i < arr.length; i++) {
-//     //let colors = ['red', 'blue', 'green', 'yellow', 'purple'];
-//     if (arr[i] == 'C') {
-//       posX.push(cw * 0.1 - 25);
-//     } else if (arr[i] == 'D') {
-//       posX.push(cw * 0.3 - 25);
-//     } else if (arr[i] == 'E') {
-//       posX.push(cw * 0.5 - 25);
-//     } else if (arr[i] == 'F') {
-//       posX.push(cw * 0.7 - 25);
-//     } else if (arr[i] == 'G') {
-//       posX.push(cw * 0.9 - 25);
-//     } else if (arr[i] == '') {
-//       posX.push(cw * 0.9 - 25);
-//     }
-//   }
-//   return posX
-// }
-// const xPos = newSong.map(createPosX)
-// console.log(xPos)
-// console.log(xPos.length)
 
-// fixed x position every five components
+// fixed x positions for every five components
 const x_input = [
   [cw * 0.1 - 25, cw * 0.3 - 25, cw * 0.5 - 25, cw * 0.7 - 25, cw * 0.9 - 25],
   [cw * 0.1 - 25, cw * 0.3 - 25, cw * 0.5 - 25, cw * 0.7 - 25, cw * 0.9 - 25],
@@ -413,9 +383,7 @@ console.log(gameBlocks.length)
 // window.requestAnimationFrame(step);
 
 
-// let gameSpeed = 0;
-// gameSpeed += randomSpeed();
-// document.getElementById("speed").innerHTML = gameSpeed
+
 
 
 
@@ -445,22 +413,23 @@ let numOfButtons = document.querySelectorAll("#key").length;
 //   }, false);
 // }
 
-// // keypress eventlistener
-// document.addEventListener("keydown", function (event) {
-//   for (let i = 0; i < gameBlocks.length; i++) {
-//     if (gameBlocks[i].y >= 0.85 * ch || gameBlocks[i].y <= ch) {
-//       makeCorrectSound(event.key);
-//       buttonAnimation(event.key);
-//       addScore(1);
-//       console.log(`${event.key}: correct`)
-//       // } else makeWrongSound(event.key);
-//       // console.log(`${event.key}: wrong`)
-//     } else if (gameBlocks[i].y < 0.8 * ch && gameBlocks[i].y > 0.9 * ch) {
-//       //makeWrongSound(event.key);
-//       addScore(1);
-//     }
-//   }
-// }, false);
+// keypress eventlistener
+document.addEventListener("keydown", function (event) {
+  for (let i = 0; i < 1; i++) {
+    if (gameBlocks[i].y >= 0.85 * ch || gameBlocks[i].y <= ch) {
+      console.log(event.key)
+      makeCorrectSound(event.key);
+      buttonAnimation(event.key);
+      addScore(1);
+      //console.log(`${event.key}: correct`)
+      // } else makeWrongSound(event.key);
+      // console.log(`${event.key}: wrong`)
+    } else if (gameBlocks[i].y < 0.8 * ch && gameBlocks[i].y > 0.9 * ch) {
+      //makeWrongSound(event.key);
+      addScore(1);
+    }
+  }
+}, false);
 
 
 // const keys = document.querySelectorAll('#key');
