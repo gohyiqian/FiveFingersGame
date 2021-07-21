@@ -98,7 +98,7 @@ function spliceIntoFive(arr, chunkSize) {
   }
   return res
 }
-let test = spliceIntoFive(wakingUpInVegas, 5)
+let test = spliceIntoFive(jingleBells, 5)
 
 // sort the song letters arrays
 function prepList(input) {
