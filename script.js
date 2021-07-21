@@ -1,10 +1,5 @@
 'use strict'
 
-// const keys = document.querySelectorAll('#key');
-// keys.forEach(key => {
-//   key.addEventListener('load', () => textToSpeech("hello world!"))
-// })
-
 let canvas = document.createElement("canvas");
 document.body.insertBefore(canvas, document.body.childNodes[0]);
 let ctx = canvas.getContext("2d");
@@ -17,7 +12,7 @@ let gameStatus;
 
 content.addEventListener('click', function (e) {
   if (content.innerHTML == "PRESS TO START" || content.innerHTML == "GAME OVER") {
-    gameStatus = window.setInterval(animateGame, 10);
+    gameStatus = window.setInterval(animateGame, 6);
     //gameStatus = animateGame();
     //document.getElementById('music').play();
     content.innerHTML = "PRESS TO PAUSE";
@@ -28,6 +23,7 @@ content.addEventListener('click', function (e) {
     content.innerHTML = "PRESS TO START";
   }
 });
+
 
 
 // creating a Grid for reference
@@ -59,18 +55,36 @@ createText()
 // let wakingUpInVegas = ['GG FF EE DD C E D C', 'CC CC CC CCC E D', 'GG FF EE DD C E D C', 'CC CC CC CCC E D C'];
 // let jingleBells = ['EEE EEE E G C D E', 'FFF FF EE EEE DD E D G', 'EEE EEE E G C D E', 'FFF FF EE EE GG F D C'];
 // let pianoMan = ['GGGG F E F E C', 'CCCC DD', 'E F GGGG F E F E C', 'CCC F E CC']
+
+let pianoMan = [
+  'G', 'G', 'G', 'G', '', 'F', '', 'E', '', 'F', '', 'E', '', 'C', '',
+  'C', 'C', 'C', 'C', '', 'D', 'D', '', 'E', '', 'F', '',
+  'G', 'G', 'G', 'G', '', 'F', '', 'E', '', 'F', '', 'E', '', 'C', '',
+  'C', 'C', 'C', '', 'F', '', 'E', '', 'C', 'C'
+]
+
+let jingleBells = [
+  'E', 'E', 'E', '', 'E', 'E', 'E', '', 'E', '', 'G', '', 'C', '', 'D', '', 'E', '',
+  'F', 'F', 'F', '', 'F', 'F', '', 'E', 'E', '', 'E', 'E', 'E', '', 'D', 'D', '', 'E', '', 'D', '', 'G', '',
+  'E', 'E', 'E', '', 'E', 'E', 'E', '', 'E', '', 'G', '', 'C', '', 'D', '', 'E', '',
+  'F', 'F', 'F', '', 'F', 'F', '', 'E', 'E', '', 'E', 'E', '', 'G', 'G', '', 'F', '', 'D', '', 'C'
+]
+
+let wakingUpInVegas = [
+  'G', 'G', '', 'F', 'F', '', 'E', 'E', '', 'D', 'D', '', 'C', '', 'E', '', 'D', '', 'C', '',
+  'C', 'C', '', 'C', 'C', '', 'C', 'C', '', 'C', 'C', 'C', '', 'E', '', 'D', '',
+  'G', 'G', '', 'F', 'F', '', 'E', 'E', '', 'D', 'D', '', 'C', '', 'E', '', 'D', '', 'C', '',
+  'C', 'C', '', 'C', 'C', '', 'C', 'C', '', 'C', 'C', 'C', '', 'E', '', 'D', '', 'C'
+]
+
 let dontStopBelievin = [
-  'C', '', 'E', '', 'C', '', 'D', 'D', '', 'E',
-  'C', 'C', 'C', 'C', '', 'G', 'G', '', 'E', '', 'D',
-  'C', '', 'E', '', 'C', '', 'D', 'D', '', 'E',
-  '', 'D', '', 'C', '', 'D', '', 'E', '', 'C'
+  'C', '', 'E', '', 'C', '', 'D', 'D', '', 'E', 'C', 'C', 'C', 'C', '', 'G', 'G', '', 'E', '',
+  'D', 'C', '', 'E', '', 'C', '', 'D', 'D', '', 'E', '', 'D', '', 'C', '', 'D', '', 'E', '', 'C'
 ]
 
 let shutUpandDance = [
-  'C', 'C', 'C', '', 'C', '', 'C', '', 'C', '',
-  'C', 'C', 'C', '', 'C', '', 'C', '', 'D', '',
-  'C', 'C', 'C', '', 'C', '', 'C', '', 'C', '',
-  'C', 'C', '', 'G', 'G', '', 'E', '', 'D', 'C', 'C'
+  'C', 'C', 'C', '', 'C', '', 'C', '', 'C', '', 'C', 'C', 'C', '', 'C', '', 'C', '', 'D', '',
+  'C', 'C', 'C', '', 'C', '', 'C', '', 'C', '', 'C', 'C', '', 'G', 'G', '', 'E', '', 'D', 'C', 'C'
 ];
 
 // splice songs into arrays of 5 letters
@@ -82,7 +96,7 @@ function spliceIntoFive(arr, chunkSize) {
   }
   return res
 }
-let test = spliceIntoFive(dontStopBelievin, 5)
+let test = spliceIntoFive(wakingUpInVegas, 5)
 
 // sort the song letters arrays
 function prepList(input) {
@@ -155,7 +169,7 @@ class Component {
     this.y += this.incrementer;
     let grd = ctx.createLinearGradient(0, 0, 0, 500);
     grd.addColorStop(0, "transparent");
-    grd.addColorStop(0.3, this.color);
+    grd.addColorStop(0.4, this.color);
     grd.addColorStop(1, this.color);
     ctx.fillStyle = grd;
     ctx.fillRect(this.x, this.y, this.width, this.height);
@@ -270,7 +284,6 @@ console.log(newColorArr.length)
 //   }
 //   return posX
 // }
-
 // const xPos = newSong.map(createPosX)
 // console.log(xPos)
 // console.log(xPos.length)
@@ -314,19 +327,6 @@ function generatePosY() {
 let yPos = generatePosY();
 console.log(yPos)
 
-// Generating yPos for constructing components
-// function fillArray(value, len) {
-//   let posY = [];
-//   for (let i = 0; i < len; i++) {
-//     posY.push(value);
-//   }
-//   let merged = [].concat.apply([], posY)
-//   return merged;
-// }
-// const yPos = fillArray(y_input, newSong.length)
-// console.log(yPos)
-// console.log(yPos.length)
-
 function createComponents() {
   let width = 50;
   let height = 50;
@@ -338,8 +338,6 @@ function createComponents() {
   }
 }
 createComponents();
-
-
 // console.log(gameBlocks)
 // console.log(gameBlocks.length)
 
@@ -378,27 +376,21 @@ createLines(5);
 
 // animate
 function animateGame() {
-  // myGameCanvas.clear();
-  // myGameCanvas.start();
   ctx.clearRect(0, 0, cw, ch);
   for (let i = 0; i < gameBlocks.length; i++) {
-    //gameBlocks[i].y += 50;
     gameBlocks[i].update();
     if (gameBlocks[i].y > ch) {
       gameBlocks[i].y = -60 * newSong.length;
     }
-
   }
-
   for (let i = 0; i < lines.length; i++) {
     lines[i].drawLine();
   }
-  //requestAnimationFrame(animateGame);
 }
 console.log(gameBlocks)
 console.log(gameBlocks.length)
 
-//setInterval(animateGame, 500); //every 1/10th of a second
+
 
 
 

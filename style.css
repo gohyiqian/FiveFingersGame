@@ -17,9 +17,9 @@ body {
     align-items: center;
     background: #36D1DC;
     /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right #5B86E5,#78f6ff,#78f6ff,#5B86E5);
+    background: -webkit-linear-gradient(to right #5B86E5,#6ce5ee,rgb(149, 223, 252),#6ce5ee,#5B86E5);
     /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #5B86E5,#78f6ff,#78f6ff,#5B86E5);
+    background: linear-gradient(to right, #5B86E5,#6ce5ee,rgb(149, 223, 252),#6ce5ee,#5B86E5);
     /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
@@ -51,7 +51,7 @@ body {
     border-radius: 10px;
     border: 3px solid black;
     font-family: fantasy;
-    font-size: 20px;
+    font-size: 25px;
     position:relative;
     display:block;
     justify-content: center;
