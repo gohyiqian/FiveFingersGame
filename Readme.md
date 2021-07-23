@@ -27,16 +27,18 @@ Most of the Piano Tiles or Guitar Hero games most of us played before generate t
 The input song will be an array containing the five keys 'C','D','E','F' and 'G' in various order. I have included ' ' as a way to space out the transition between notes. Most of the time are spent on sorting the input song arrays into a format that allow me to properly display the position of the components on the canvas.
 
 #### Example of Input songs array:
+```
 let wakingUpInVegas = [
   'G', 'G', '', 'F', 'F', '', 'E', 'E', '', 'D', 'D', '', 'C', '', 'E', '', 'D', '', 'C', '',
   'C', 'C', '', 'C', 'C', '', 'C', 'C', '', 'C', 'C', 'C', '', 'E', '', 'D', '',
   'G', 'G', '', 'F', 'F', '', 'E', 'E', '', 'D', 'D', '', 'C', '', 'E', '', 'D', '', 'C', '',
   'C', 'C', '', 'C', 'C', '', 'C', 'C', '', 'C', 'C', 'C', '', 'E', '', 'D', '', 'C'
 ]
+```
 
 #### Sorted songs:
 Using splice(), push(), shift(), concat() functions to sort.
-
+```
 0: (5) ["", "", "", "", "G"]
 1: (5) ["", "", "", "", "G"]
 2: (5) ["", "", "", "", ""]
@@ -45,9 +47,10 @@ Using splice(), push(), shift(), concat() functions to sort.
 5: (5) ["", "", "", "", ""]
 6: (5) ["", "", "E", "", ""]
 7: (5) ["", "", "E", "", ""]
-
+```
 
 #### Sorted yPos in sets of 5:
+```
 0: (5) [-60, -60, -60, -60, -60]
 1: (5) [-120, -120, -120, -120, -120]
 2: (5) [-180, -180, -180, -180, -180]
@@ -56,9 +59,10 @@ Using splice(), push(), shift(), concat() functions to sort.
 5: (5) [-360, -360, -360, -360, -360]
 6: (5) [-420, -420, -420, -420, -420]
 7: (5) [-480, -480, -480, -480, -480]
-
+```
 
 #### Fixed xPos in sets of 5:
+```
 0: (5) [13, 89, 165, 241, 317]
 1: (5) [13, 89, 165, 241, 317]
 2: (5) [13, 89, 165, 241, 317]
@@ -67,9 +71,10 @@ Using splice(), push(), shift(), concat() functions to sort.
 5: (5) [13, 89, 165, 241, 317]
 6: (5) [13, 89, 165, 241, 317]
 7: (5) [13, 89, 165, 241, 317]
-
+```
 
 #### Example Block components:
+```
 0: Component {x: 13, y: -60, width: 50, height: 50, color: "transparent", …}
 1: Component {x: 89, y: -60, width: 50, height: 50, color: "transparent", …}
 2: Component {x: 165, y: -60, width: 50, height: 50, color: "transparent", …}
@@ -110,12 +115,12 @@ Using splice(), push(), shift(), concat() functions to sort.
 37: Component {x: 165, y: -480, width: 50, height: 50, color: "green", …}
 38: Component {x: 241, y: -480, width: 50, height: 50, color: "transparent", …}
 39: Component {x: 317, y: -480, width: 50, height: 50, color: "transparent", …}
-
+```
 
 ![Explanation Image](/images/explain.jpg)
 
 #### Ultimately I ended up with nested arrays for xPos, yPos, colors, which is used to create the components:
-
+```
 function createComponents() {
   let width = 50;
   let height = 50;
@@ -127,7 +132,7 @@ function createComponents() {
   }
 }
 createComponents();
-
+```
 
 ## Completed Task
 - [x] Create a canvas and add 5 buttons
@@ -148,24 +153,7 @@ createComponents();
 - [ ] Add ability to save game
 
 
-**This text will be bold**
-__This will also be bold__
+Motivation Quote:
+> If you want it,
+> work for it.
 
-_You **can** combine them_
-
-* Item 1
-* Item 2
-  * Item 2a
-  * Item 2b
-
-
-
-[GitHub](http://github.com)
-
-As Kanye West said:
-
-> We're living the future so
-> the present is our past.
-
-I think you should use an
-`<addr>` element here instead.
