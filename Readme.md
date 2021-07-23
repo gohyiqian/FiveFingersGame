@@ -1,6 +1,6 @@
 ![Guitar Image](/images/artboard.jpg)
 
-# Five Keys Songs
+# Five Notes Songs
 [Try the Game Here](https://gohyiqian.github.io/GA-Project1/)
 ## An Overview
 Hello!
