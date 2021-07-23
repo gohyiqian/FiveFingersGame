@@ -49,7 +49,7 @@ Using splice(), push(), shift(), concat() functions to sort.
 7: (5) ["", "", "E", "", ""]
 ```
 
-#### Sorted yPos in sets of 5:
+#### Sorted y_Pos in sets of 5:
 ```
 0: (5) [-60, -60, -60, -60, -60]
 1: (5) [-120, -120, -120, -120, -120]
@@ -61,7 +61,7 @@ Using splice(), push(), shift(), concat() functions to sort.
 7: (5) [-480, -480, -480, -480, -480]
 ```
 
-#### Fixed xPos in sets of 5:
+#### Fixed x_Pos in sets of 5:
 ```
 0: (5) [13, 89, 165, 241, 317]
 1: (5) [13, 89, 165, 241, 317]
@@ -116,7 +116,7 @@ Using splice(), push(), shift(), concat() functions to sort.
 38: Component {x: 241, y: -480, width: 50, height: 50, color: "transparent", …}
 39: Component {x: 317, y: -480, width: 50, height: 50, color: "transparent", …}
 ```
-
+#### Image for illustration:
 ![Explanation Image](/images/explain.jpg)
 
 #### Ultimately I ended up with nested arrays for xPos, yPos, colors, which is used to create the components:
