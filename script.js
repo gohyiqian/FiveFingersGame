@@ -16,8 +16,8 @@ let inputSong;
 startGame.addEventListener('click', function (e) {
   if (startGame.innerHTML == "PRESS TO PLAY DEFAULT SONG" || startGame.innerHTML == "GAME OVER") {
     // checkGame()
-    gameStatus = window.setInterval(animateGame, 8);
-    document.getElementById("speed").innerHTML = '8 ms';
+    gameStatus = window.setInterval(animateGame, 7);
+    document.getElementById("speed").innerHTML = '7 ms';
     //gameStatus = animateGame();
     //document.getElementById('music').play();
     startGame.innerHTML = "PRESS TO PAUSE";
@@ -482,8 +482,8 @@ for (let i = 0; i < numOfButtons; i++) {
         makeCorrectSound(buttonInnerHTML);
         buttonAnimation(buttonInnerHTML);
         addScore(1)
-      } else if (gameBlocks[i].y > ch) {
-        makeWrongSound(buttonInnerHTML);
+        // } else if (gameBlocks[i].y > ch) {
+        //   makeWrongSound(buttonInnerHTML);
 
       }
     }
@@ -502,9 +502,10 @@ document.addEventListener("keydown", (event) => {
       addScore(1);
       event.stopPropagation();
       console.log(`${event.key}: correct`)
-    } else // difficult to track the wrong region as my y keep increasing
-      makeWrongSound(event.key);
-    addScore(-1);
+      // } else // difficult to track the wrong region as my y keep increasing
+      //   makeWrongSound(event.key);
+      // addScore(-1);
+    }
   }
 }, false);
 
@@ -615,17 +616,3 @@ function addScore(x) {
     }
   });
 }
-
-// function myFunction() {
-//   document.getElementById("myDropdown").classList.toggle("show");
-// }
-
-// // Close the dropdown if the user clicks outside of it
-// window.onclick = function (e) {
-//   if (!e.target.matches('.dropbtn')) {
-//     var myDropdown = document.getElementById("myDropdown");
-//     if (myDropdown.classList.contains('show')) {
-//       myDropdown.classList.remove('show');
-//     }
-//   }
-// }
