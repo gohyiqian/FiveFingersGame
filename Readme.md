@@ -134,6 +134,58 @@ function createComponents() {
 createComponents();
 ```
 
+#### animateGame Function:
+```
+function animateGame() {
+  ctx.clearRect(0, 0, cw, ch);
+  for (let i = 0; i < gameBlocks.length; i++) {
+    gameBlocks[i].update();
+    if (gameBlocks[i].y > ch) {
+      gameBlocks[i].y = -60 * newSong.length;
+    }
+  }
+  for (let i = 0; i < lines.length; i++) {
+    lines[i].drawLine();
+  }
+}
+console.log(gameBlocks);
+```
+
+#### Button and music:
+```
+function makeCorrectSound(key) {
+  switch (key) {
+    case "a":
+      let btnA = new Audio("notes/notes_C4.mp3");
+      btnA.play();
+      break;
+
+    case "s":
+      let btnB = new Audio("notes/notes_D4.mp3");
+      btnB.play();
+      break;
+
+    case "d":
+      let btnC = new Audio('notes/notes_E4.mp3');
+      btnC.play();
+      break;
+
+    case "f":
+      let btnD = new Audio('notes/notes_F4.mp3');
+      btnD.play();
+      break;
+
+    case "g":
+      let btnE = new Audio('notes/notes_G4.mp3');
+      btnE.play();
+      break;
+
+    default:
+      console.log(key);
+  }
+}
+```
+
 ## Completed Task
 - [x] Create a canvas and add 5 buttons
 - [x] Add mouse-click & keypress eventlisteners
@@ -153,7 +205,7 @@ createComponents();
 - [ ] Add ability to save game
 
 
-Motivation Quote:
+#### Motivation Quote:
 > If you want it,
 > work for it.
 
