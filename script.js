@@ -7,28 +7,30 @@ const cw = canvas.width = 380;
 const ch = canvas.height = 500;
 let gameBlocks = [];
 let lines = [];
-let startgame = document.getElementById('move');
+let startGame = document.getElementById('move');
+let newGame = document.getElementById('switch');
 let gameStatus;
+let inputSong;
 
-startgame.addEventListener('click', function (e) {
-  if (startgame.innerHTML == "PRESS TO PLAY DEFAULT SONG" || startgame.innerHTML == "GAME OVER") {
+
+startGame.addEventListener('click', function (e) {
+  if (startGame.innerHTML == "PRESS TO PLAY DEFAULT SONG" || startGame.innerHTML == "GAME OVER") {
+    // checkGame()
     gameStatus = window.setInterval(animateGame, 8);
+    document.getElementById("speed").innerHTML = '8 ms';
     //gameStatus = animateGame();
     //document.getElementById('music').play();
-    startgame.innerHTML = "PRESS TO PAUSE";
+    startGame.innerHTML = "PRESS TO PAUSE";
   } else {
     //document.getElementById('music').pause();
     window.clearInterval(gameStatus);
     //window.cancelAnimationFrame(gameStatus)
-    startgame.innerHTML = "PRESS TO PLAY DEFAULT SONG";
+    startGame.innerHTML = "PRESS TO PLAY DEFAULT SONG";
   }
 });
 
-// let gameSpeed = 0;
-// gameSpeed += randomSpeed();
-document.getElementById("speed").innerHTML = '8 ms';
 
-// creating a Grid for reference
+// creating a Grid for starting scene
 // draw vertical lines
 function createGrid() {
   for (let x = 0; x < ch; x += 38) {
@@ -52,11 +54,7 @@ function createText() {
   ctx.fillText(txt, (cw - ctx.measureText(txt).width) * 0.5, 250);
 }
 createText()
-// let shutUpandDance = ['CCC C C C', 'CCC C C D', 'CCC C C C', 'CC GG E D CC'];
-// let dontStopBelievin = ['C E C DD E', 'CCCC GG E D', 'C E C DD E D C D E C'];
-// let wakingUpInVegas = ['GG FF EE DD C E D C', 'CC CC CC CCC E D', 'GG FF EE DD C E D C', 'CC CC CC CCC E D C'];
-// let jingleBells = ['EEE EEE E G C D E', 'FFF FF EE EEE DD E D G', 'EEE EEE E G C D E', 'FFF FF EE EE GG F D C'];
-// let pianoMan = ['GGGG F E F E C', 'CCCC DD', 'E F GGGG F E F E C', 'CCC F E CC']
+
 
 let maryHadALittleLamb = [
   'E', '', 'D', '', 'C', '', 'D', '', 'E', '', 'E', '', 'E', '', '', 'D', '', 'D', '', 'D', '', '', 'E', '', 'G', '', 'G', '', '',
@@ -120,6 +118,65 @@ let allSongsInOne = [
   'C', 'C', 'C', '', 'F', '', 'E', '', 'C', 'C', ''
 ]
 
+// Create Own Songs Section
+let createBtn = document.querySelectorAll("#create");
+for (let i = 0; i < createBtn.length; i++) {
+  createBtn[i].addEventListener("click", function (event) {
+    let buttonInnerHTML = this.innerHTML;
+    let target = document.getElementById("createSong");
+    let newSpan = document.createElement('span');
+    newSpan.setAttribute("id", "createSpan");
+    const newContent = document.createTextNode(buttonInnerHTML);
+    newSpan.append(newContent);
+    target.append(newSpan);
+  });
+}
+
+inputSong = spliceIntoFive(allSongsInOne, 5)
+newGame.addEventListener("click", function (event) {
+  if (newGame.innerHTML == "PRESS TO PLAY YOUR SONG" || newGame.innerHTML == "GAME OVER") {
+    let newAddedNotes = document.querySelectorAll('#createSpan');
+
+    let newInputSong = [];
+    for (let i = 0; i < newAddedNotes.length; i++) {
+      newInputSong.push(newAddedNotes[i].innerHTML);
+      console.log(newInputSong)
+      if (newAddedNotes.innerHTML !== 0) {
+        inputSong = spliceIntoFive(newInputSong, 5)
+      }
+    }
+    // gameStatus = window.setInterval(animateGame, 8);
+    // document.getElementById("speed").innerHTML = '8 ms';
+    newGame.innerHTML = "PRESS TO PAUSE";
+  } else {
+    // window.clearInterval(gameStatus);
+    newGame.innerHTML = "PRESS TO PLAY YOUR SONG";
+  }
+});
+
+// let nwSong = document.getElementsByTagName('span');
+// console.log(nwSong)
+
+// var allSpans = document.getElementsByTagName('span');
+// var arrayNumbers = [];
+
+// function pushNewSong() {
+//   for (var i = 0; i < allSpans.length; i++) {
+//     arrayNumbers.push(allSpans[i].innerHTML);
+
+//     // let test = arrayNumbers.splice(0, 1)
+//     // console.log(test)
+//   }
+//   return arrayNumbers
+// }
+
+
+// function checkGame() {
+//   if (newGame.innerHTML !== 0) {
+//     console.log("yes is 0")
+//   }
+// }
+
 // splice songs into arrays of 5 letters
 function spliceIntoFive(arr, chunkSize) {
   const res = [];
@@ -129,7 +186,7 @@ function spliceIntoFive(arr, chunkSize) {
   }
   return res
 }
-let inputSong = spliceIntoFive(allSongsInOne, 5)
+// let inputSong = spliceIntoFive(allSongsInOne, 5)
 
 // sort the song letters arrays
 function prepList(input) {
@@ -140,7 +197,7 @@ function prepList(input) {
     input.shift();
   }
   let merged = [].concat.apply([], list);
-  //console.log(merged);
+  console.log(merged);
   //console.log(`# of items in merged: ${merged.length}`)
   return merged;
 }
@@ -203,6 +260,7 @@ class Component {
   }
 }
 
+// for test
 // function createComponents(num) {
 //   for (let i = 0; i < num; i++) {
 //     for (let j = 0; j < 5; j++) {
@@ -281,7 +339,6 @@ const newColorArr = newSong.map(createColorList);
 // console.log(newColorArr)
 // console.log(newColorArr.length)
 
-
 // fixed x positions for every five groups of components
 const x_input = [
   [cw * 0.1 - 25, cw * 0.3 - 25, cw * 0.5 - 25, cw * 0.7 - 25, cw * 0.9 - 25],
@@ -301,6 +358,7 @@ function fillArray(value, len) {
   return merged;
 }
 const xPos = fillArray(x_input, newSong.length)
+// console.log(xPos)
 
 // Generating yPos for constructing components
 let startPosY = [0, 0, 0, 0, 0]
@@ -399,8 +457,8 @@ function animateGame() {
     lines[i].drawLine();
   }
 }
-console.log(gameBlocks)
-// console.log(gameBlocks.length)
+console.log(gameBlocks);
+// console.log(gameBlocks.length);
 
 
 // Add Time
@@ -432,7 +490,7 @@ for (let i = 0; i < numOfButtons; i++) {
   }, false);
 }
 
-console.log(gameBlocks[0].y)
+// console.log(gameBlocks[0].y);
 
 // keypress eventlistener
 document.addEventListener("keydown", (event) => {
@@ -442,31 +500,13 @@ document.addEventListener("keydown", (event) => {
       makeCorrectSound(event.key);
       buttonAnimation(event.key);
       addScore(1);
-      //event.stopPropagation();
+      event.stopPropagation();
       console.log(`${event.key}: correct`)
-    } else
+    } else // difficult to track the wrong region as my y keep increasing
       makeWrongSound(event.key);
     addScore(-1);
   }
 }, false);
-
-// Create Own Songs Section
-function collectSong() {
-  let createBtn = document.querySelectorAll("#create");
-  for (let i = 0; i < createBtn.length; i++) {
-    createBtn[i].addEventListener("click", function (event) {
-      let buttonInnerHTML = this.innerHTML
-      let target = document.getElementById("createSong");
-      const newContent = document.createTextNode(buttonInnerHTML)
-      let newSong = target.append(newContent)
-      console.log(newSong)
-    });
-  }
-  return newSong
-}
-
-let abc = collectSong()
-console.log(abc)
 
 
 function makeCorrectSound(key) {
@@ -502,7 +542,6 @@ function makeCorrectSound(key) {
 }
 
 function makeWrongSound(key) {
-
   switch (key) {
     case "a":
       let btnA = new Audio("sounds/wrongSound.mp3");
@@ -575,7 +614,6 @@ function addScore(x) {
       $(this).css("top", -55 * (2 - now) + "px");
     }
   });
-
 }
 
 // function myFunction() {

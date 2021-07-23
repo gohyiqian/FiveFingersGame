@@ -75,7 +75,7 @@ body {
 }
 
 #createSong{
-    height:150px;
+    height:200px;
     width:380px;
     border-radius: 10px;
     background-color: white;
@@ -91,13 +91,18 @@ body {
     padding:5px;
 }
 
+#createSpan{
+    position:relative;
+}
+
+
 #key:hover{
     background-color: rgb(255, 154, 117);
 }
 
 .status{
     position:relative;
-    display:block;
+    display:inline;
     justify-content: center;
     margin:1px;
 }
