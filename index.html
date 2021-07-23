@@ -37,20 +37,34 @@
         </div>
     </div>
 
+    <!-- <audio id="music" src="sounds/wakingUpInVegas.mp3" loop onloadeddata="reduceVolume()"></audio> -->
     <div>
-        <button id="move" class="col-3">PRESS TO START</button>
-        <button id="switch" class="col-3">SWITCH SONGS</button>
+        <button id="move" class="col-3">PRESS TO PLAY DEFAULT SONG</button>
+    </div>
+    <h2>Create Your Own 5 Note Songs</h2>
+    <div class="row">
+        <button id="create" class="C col-1">C </button>
+        <button id="create" class="D col-1">D </button>
+        <button id="create" class="E col-1">E </button>
+        <button id="create" class="F col-1">F </button>
+        <button id="create" class="G col-1">G </button>
+        <button id="create" class="space col-1">' '</button>
+    </div>
+    <div class="row" id="createSong"></div>
+    <div>
+        <button id="switch" class="col-3">PRESS TO PLAY YOUR SONG</button>
     </div>
 
     <div id="center">
-        <div id="tag">+50</div>
-        <div id="score1"></div>
+        <div id="tag">+1</div>
+        <div id="scoreAnimate"></div>
     </div>
-
-    <h2>Game Rules</h2>
+    <h2>Simple Game Rules</h2>
     <li>Time the falling cubes!</li>
     <li>Press the correct buttons to score points!</li>
+    <li>Create your own songs</li>
     <li>Keep Playing!</li>
+    <li>No time wasted on Game Over</li>
 
     <script src="script.js" charset="utf-8"></script>
 </body>
