@@ -587,7 +587,7 @@ function buttonAnimation(key) {
 let score = 0;
 
 function addScore(x) {
-  document.getElementById("score").animate({
+  $("#score").animate({
     score: x
   }, {
     duration: 1000,
