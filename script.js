@@ -484,12 +484,10 @@ for (let i = 0; i < numOfButtons; i++) {
         addScore(1)
         // } else if (gameBlocks[i].y > ch) {
         //   makeWrongSound(buttonInnerHTML);
-
       }
     }
   }, false);
 }
-
 // console.log(gameBlocks[0].y);
 
 // keypress eventlistener
@@ -585,12 +583,11 @@ function buttonAnimation(key) {
 }
 
 // Adding Score
+// ** copied
 let score = 0;
 
 function addScore(x) {
-  $({
-    score: 0
-  }).animate({
+  document.getElementById("score").animate({
     score: x
   }, {
     duration: 1000,
