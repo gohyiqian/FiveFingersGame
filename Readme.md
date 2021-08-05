@@ -1,13 +1,16 @@
 ![Guitar Image](/images/artboard.jpg)
 
 # Five Notes Songs
+
 [Try the Game Here](https://gohyiqian.github.io/GA-Project1/)
+
 ## An Overview
+
 Hello!
 
 Five Keys Songs is specially designed for people who do not have much music talent, like myself, but aspire to be able to play some simple piano notes to impress your friends and family. Songs that can be played using just 5 keys, namely 'C','D','E','F' and 'G', are being selected for this game so that anyone with no piano background can pick it up easily!
 
-This game is  a simple adaptation of the popular *Guitar Hero* and *Piano Tiles* games.
+This game is a simple adaptation of the popular _Guitar Hero_ and _Piano Tiles_ games.
 Players will time the descending target and receive points when they keypress 'A','S','D','F','G' or mouseclick at the correct timing.
 
 The game is created using custom functions of HTML canvas element.
@@ -15,18 +18,30 @@ Canvas is an HTML element that allows a user to create graphics, on the fly, usi
 One thing to note is that the coordinate system for canvas starts from the top left.
 
 Basic Animation Steps using canvas elements:
+
 1. Draw the shapes to be animated
 2. Define motion of shapes (transform in y-direction)
-3. Clear the canvas using *clearRect* function to remove previous frame
-4. Update the canvas. To constantly update the canvas, we need to define a drawing loop using JavaScript timing function such as *setInterval*, *setTimeout* or *requestAnimationFrame* functions
+3. Clear the canvas using _clearRect_ function to remove previous frame
+4. Update the canvas. To constantly update the canvas, we need to define a drawing loop using JavaScript timing function such as _setInterval_, _setTimeout_ or _requestAnimationFrame_ functions
 
 ## Motivation
-Most of the Piano Tiles or Guitar Hero games most of us played before generate the tiles or blocks in a *randomised manner*. My attempt is to be able to *dictate the position* of every single tiles or blocks played so the user can click each incoming tiles in sequence and play a song like playing a piano.
+
+Most of the Piano Tiles or Guitar Hero games most of us played before generate the tiles or blocks in a _randomised manner_. My attempt is to be able to _dictate the position_ of every single tiles or blocks played so the user can click each incoming tiles in sequence and play a song like playing a piano.
 
 ## Explanation
+
 The input song will be an array containing the five keys 'C','D','E','F' and 'G' in various order. I have included ' ' as a way to space out the transition between notes. Most of the time are spent on sorting the input song arrays into a format that allow me to properly display the position of the components on the canvas.
 
+#### Wireframe for Browser:
+
+![Explanation Image](/images/Wireframe_browser.png)
+
+#### Wireframe for Phone:
+
+![Explanation Image](/images/Wireframe_phone.png)
+
 #### Example of Input songs array:
+
 ```
 let wakingUpInVegas = [
   'G', 'G', '', 'F', 'F', '', 'E', 'E', '', 'D', 'D', '', 'C', '', 'E', '', 'D', '', 'C', '',
@@ -37,7 +52,9 @@ let wakingUpInVegas = [
 ```
 
 #### Sorted songs:
+
 Using splice(), push(), shift(), concat() functions to sort.
+
 ```
 0: (5) ["", "", "", "", "G"]
 1: (5) ["", "", "", "", "G"]
@@ -50,6 +67,7 @@ Using splice(), push(), shift(), concat() functions to sort.
 ```
 
 #### Sorted y_Pos in sets of 5:
+
 ```
 0: (5) [-60, -60, -60, -60, -60]
 1: (5) [-120, -120, -120, -120, -120]
@@ -62,6 +80,7 @@ Using splice(), push(), shift(), concat() functions to sort.
 ```
 
 #### Fixed x_Pos in sets of 5:
+
 ```
 0: (5) [13, 89, 165, 241, 317]
 1: (5) [13, 89, 165, 241, 317]
@@ -74,6 +93,7 @@ Using splice(), push(), shift(), concat() functions to sort.
 ```
 
 #### Example Block components:
+
 ```
 0: Component {x: 13, y: -60, width: 50, height: 50, color: "transparent", …}
 1: Component {x: 89, y: -60, width: 50, height: 50, color: "transparent", …}
@@ -116,10 +136,13 @@ Using splice(), push(), shift(), concat() functions to sort.
 38: Component {x: 241, y: -480, width: 50, height: 50, color: "transparent", …}
 39: Component {x: 317, y: -480, width: 50, height: 50, color: "transparent", …}
 ```
+
 #### Image for illustration:
+
 ![Explanation Image](/images/explain.jpg)
 
 #### Ultimately I ended up with nested arrays for xPos, yPos, colors, which is used to create the components:
+
 ```
 function createComponents() {
   let width = 50;
@@ -135,6 +158,7 @@ createComponents();
 ```
 
 #### animateGame Function:
+
 ```
 function animateGame() {
   ctx.clearRect(0, 0, cw, ch);
@@ -152,6 +176,7 @@ console.log(gameBlocks);
 ```
 
 #### Button and music:
+
 ```
 function makeCorrectSound(key) {
   switch (key) {
@@ -187,6 +212,7 @@ function makeCorrectSound(key) {
 ```
 
 ## Completed Task
+
 - [x] Create a canvas and add 5 buttons
 - [x] Add mouse-click & keypress eventlisteners
 - [x] Add corresponding colors when button is activated
@@ -197,6 +223,7 @@ function makeCorrectSound(key) {
 - [x] Add requestAnimationFrame or setInterval function to loop animations
 
 ## Some Future To-Do List
+
 - [ ] Resolve the create song portion
 - [ ] Resolve the threshold for 'correct' button hit
 - [ ] Add scoring based of # of correct timing of activating the buttons
@@ -204,8 +231,7 @@ function makeCorrectSound(key) {
 - [ ] Add increasing speed as score increases
 - [ ] Add ability to save game
 
-
 #### Motivation Quote:
+
 > If you want it,
 > work for it.
-
