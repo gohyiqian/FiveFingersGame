@@ -243,7 +243,6 @@ class Component {
     this.width = width;
     this.height = height;
     this.color = color;
-
     //this.incrementer = Math.floor(Math.random() * 50 + 50)
     this.incrementer = 1; //stepsize
   }
@@ -256,6 +255,7 @@ class Component {
     grd.addColorStop(1, this.color);
     ctx.fillStyle = grd;
     ctx.fillRect(this.x, this.y, this.width, this.height);
+    ctx.drawImage("images/blueGem.png", this.x, this.y, this.width, this.height);
     //ctx.clearRect(this.x, this.y + 10, this.width, this.height);
   }
 }
