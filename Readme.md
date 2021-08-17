@@ -1,14 +1,12 @@
-![Guitar Image](/images/artboard.jpg)
-
 # Five Notes Songs
 
-[Try the Game Here](https://gohyiqian.github.io/GA-Project1/)
+[Try the Game Here](https://gohyiqian.github.io/GA-Project-1/)
 
 ## An Overview
 
-Hello!
-
 Five Keys Songs is specially designed for people who do not have much music talent, like myself, but aspire to be able to play some simple piano notes to impress your friends and family. Songs that can be played using just 5 keys, namely 'C','D','E','F' and 'G', are being selected for this game so that anyone with no piano background can pick it up easily!
+
+![Guitar Image](/images/artboard.jpg)
 
 This game is a simple adaptation of the popular _Guitar Hero_ and _Piano Tiles_ games.
 Players will time the descending target and receive points when they keypress 'A','S','D','F','G' or mouseclick at the correct timing.
