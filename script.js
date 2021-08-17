@@ -1,23 +1,25 @@
-'use strict'
+"use strict";
 
 let canvas = document.createElement("canvas");
 document.body.insertBefore(canvas, document.body.childNodes[0]);
 let ctx = canvas.getContext("2d");
-const cw = canvas.width = 380;
-const ch = canvas.height = 500;
+const cw = (canvas.width = 380);
+const ch = (canvas.height = 500);
 let gameBlocks = [];
 let lines = [];
-let startGame = document.getElementById('move');
-let newGame = document.getElementById('switch');
+let startGame = document.getElementById("move");
+let newGame = document.getElementById("switch");
 let gameStatus;
 let inputSong;
 
-
-startGame.addEventListener('click', function (e) {
-  if (startGame.innerHTML == "PRESS TO PLAY DEFAULT SONG" || startGame.innerHTML == "GAME OVER") {
+startGame.addEventListener("click", function (e) {
+  if (
+    startGame.innerHTML == "PRESS TO PLAY DEFAULT SONG" ||
+    startGame.innerHTML == "GAME OVER"
+  ) {
     // checkGame()
     gameStatus = window.setInterval(animateGame, 7);
-    document.getElementById("speed").innerHTML = '7 ms';
+    document.getElementById("speed").innerHTML = "7 ms";
     //gameStatus = animateGame();
     //document.getElementById('music').play();
     startGame.innerHTML = "PRESS TO PAUSE";
@@ -28,7 +30,6 @@ startGame.addEventListener('click', function (e) {
     startGame.innerHTML = "PRESS TO PLAY DEFAULT SONG";
   }
 });
-
 
 // creating a Grid for starting scene
 // draw vertical lines
@@ -46,77 +47,821 @@ function createGrid() {
   ctx.setLineDash([10, 5]);
   ctx.stroke();
 }
-createGrid()
+createGrid();
 
 function createText() {
   ctx.font = "20px Georgia";
-  let txt = "Press button below to begin!"
+  let txt = "Press button below to begin!";
   ctx.fillText(txt, (cw - ctx.measureText(txt).width) * 0.5, 250);
 }
-createText()
-
+createText();
 
 const maryHadALittleLamb = [
-  'E', '', 'D', '', 'C', '', 'D', '', 'E', '', 'E', '', 'E', '', '', 'D', '', 'D', '', 'D', '', '', 'E', '', 'G', '', 'G', '', '',
-  'E', '', 'D', '', 'C', '', 'D', '', 'E', '', 'E', '', 'E', '', 'E', '', 'D', '', 'D', '', 'E', '', 'D', '', 'C', '', '', '', '',
-  'E', 'D', 'C', 'D', 'E', 'E', 'E', '', 'D', 'D', 'D', '', 'E', 'G', 'G', '',
-  'E', 'D', 'C', 'D', 'E', 'E', 'E', 'E', 'D', 'D', 'E', 'D', 'C', '', '', '',
-]
+  "E",
+  "",
+  "D",
+  "",
+  "C",
+  "",
+  "D",
+  "",
+  "E",
+  "",
+  "E",
+  "",
+  "E",
+  "",
+  "",
+  "D",
+  "",
+  "D",
+  "",
+  "D",
+  "",
+  "",
+  "E",
+  "",
+  "G",
+  "",
+  "G",
+  "",
+  "",
+  "E",
+  "",
+  "D",
+  "",
+  "C",
+  "",
+  "D",
+  "",
+  "E",
+  "",
+  "E",
+  "",
+  "E",
+  "",
+  "E",
+  "",
+  "D",
+  "",
+  "D",
+  "",
+  "E",
+  "",
+  "D",
+  "",
+  "C",
+  "",
+  "",
+  "",
+  "",
+  "E",
+  "D",
+  "C",
+  "D",
+  "E",
+  "E",
+  "E",
+  "",
+  "D",
+  "D",
+  "D",
+  "",
+  "E",
+  "G",
+  "G",
+  "",
+  "E",
+  "D",
+  "C",
+  "D",
+  "E",
+  "E",
+  "E",
+  "E",
+  "D",
+  "D",
+  "E",
+  "D",
+  "C",
+  "",
+  "",
+  "",
+];
 
 const pianoMan = [
-  'G', 'G', 'G', 'G', '', 'F', '', 'E', '', 'F', '', 'E', '', 'C', '',
-  'C', 'C', 'C', 'C', '', 'D', 'D', '', 'E', '', 'F', '',
-  'G', 'G', 'G', 'G', '', 'F', '', 'E', '', 'F', '', 'E', '', 'C', '',
-  'C', 'C', 'C', '', 'F', '', 'E', '', 'C', 'C'
-]
+  "G",
+  "G",
+  "G",
+  "G",
+  "",
+  "F",
+  "",
+  "E",
+  "",
+  "F",
+  "",
+  "E",
+  "",
+  "C",
+  "",
+  "C",
+  "C",
+  "C",
+  "C",
+  "",
+  "D",
+  "D",
+  "",
+  "E",
+  "",
+  "F",
+  "",
+  "G",
+  "G",
+  "G",
+  "G",
+  "",
+  "F",
+  "",
+  "E",
+  "",
+  "F",
+  "",
+  "E",
+  "",
+  "C",
+  "",
+  "C",
+  "C",
+  "C",
+  "",
+  "F",
+  "",
+  "E",
+  "",
+  "C",
+  "C",
+];
 
 const jingleBells = [
-  'E', 'E', 'E', '', 'E', 'E', 'E', '', 'E', '', 'G', '', 'C', '', 'D', '', 'E', '',
-  'F', 'F', 'F', '', 'F', 'F', '', 'E', 'E', '', 'E', 'E', 'E', '', 'D', 'D', '', 'E', '', 'D', '', 'G', '',
-  'E', 'E', 'E', '', 'E', 'E', 'E', '', 'E', '', 'G', '', 'C', '', 'D', '', 'E', '',
-  'F', 'F', 'F', '', 'F', 'F', '', 'E', 'E', '', 'E', 'E', '', 'G', 'G', '', 'F', '', 'D', '', 'C'
-]
+  "E",
+  "E",
+  "E",
+  "",
+  "E",
+  "E",
+  "E",
+  "",
+  "E",
+  "",
+  "G",
+  "",
+  "C",
+  "",
+  "D",
+  "",
+  "E",
+  "",
+  "F",
+  "F",
+  "F",
+  "",
+  "F",
+  "F",
+  "",
+  "E",
+  "E",
+  "",
+  "E",
+  "E",
+  "E",
+  "",
+  "D",
+  "D",
+  "",
+  "E",
+  "",
+  "D",
+  "",
+  "G",
+  "",
+  "E",
+  "E",
+  "E",
+  "",
+  "E",
+  "E",
+  "E",
+  "",
+  "E",
+  "",
+  "G",
+  "",
+  "C",
+  "",
+  "D",
+  "",
+  "E",
+  "",
+  "F",
+  "F",
+  "F",
+  "",
+  "F",
+  "F",
+  "",
+  "E",
+  "E",
+  "",
+  "E",
+  "E",
+  "",
+  "G",
+  "G",
+  "",
+  "F",
+  "",
+  "D",
+  "",
+  "C",
+];
 
 const wakingUpInVegas = [
-  'G', 'G', '', 'F', 'F', '', 'E', 'E', '', 'D', 'D', '', 'C', '', 'E', '', 'D', '', 'C', '',
-  'C', 'C', '', 'C', 'C', '', 'C', 'C', '', 'C', 'C', 'C', '', 'E', '', 'D', '',
-  'G', 'G', '', 'F', 'F', '', 'E', 'E', '', 'D', 'D', '', 'C', '', 'E', '', 'D', '', 'C', '',
-  'C', 'C', '', 'C', 'C', '', 'C', 'C', '', 'C', 'C', 'C', '', 'E', '', 'D', '', 'C'
-]
+  "G",
+  "G",
+  "",
+  "F",
+  "F",
+  "",
+  "E",
+  "E",
+  "",
+  "D",
+  "D",
+  "",
+  "C",
+  "",
+  "E",
+  "",
+  "D",
+  "",
+  "C",
+  "",
+  "C",
+  "C",
+  "",
+  "C",
+  "C",
+  "",
+  "C",
+  "C",
+  "",
+  "C",
+  "C",
+  "C",
+  "",
+  "E",
+  "",
+  "D",
+  "",
+  "G",
+  "G",
+  "",
+  "F",
+  "F",
+  "",
+  "E",
+  "E",
+  "",
+  "D",
+  "D",
+  "",
+  "C",
+  "",
+  "E",
+  "",
+  "D",
+  "",
+  "C",
+  "",
+  "C",
+  "C",
+  "",
+  "C",
+  "C",
+  "",
+  "C",
+  "C",
+  "",
+  "C",
+  "C",
+  "C",
+  "",
+  "E",
+  "",
+  "D",
+  "",
+  "C",
+];
 
 const dontStopBelievin = [
-  'C', '', 'E', '', 'C', '', 'D', 'D', '', 'E', 'C', 'C', 'C', 'C', '', 'G', 'G', '', 'E', '',
-  'D', 'C', '', 'E', '', 'C', '', 'D', 'D', '', 'E', '', 'D', '', 'C', '', 'D', '', 'E', '', 'C'
-]
+  "C",
+  "",
+  "E",
+  "",
+  "C",
+  "",
+  "D",
+  "D",
+  "",
+  "E",
+  "C",
+  "C",
+  "C",
+  "C",
+  "",
+  "G",
+  "G",
+  "",
+  "E",
+  "",
+  "D",
+  "C",
+  "",
+  "E",
+  "",
+  "C",
+  "",
+  "D",
+  "D",
+  "",
+  "E",
+  "",
+  "D",
+  "",
+  "C",
+  "",
+  "D",
+  "",
+  "E",
+  "",
+  "C",
+];
 
 const shutUpandDance = [
-  'C', 'C', 'C', '', 'C', '', 'C', '', 'C', '', 'C', 'C', 'C', '', 'C', '', 'C', '', 'D', '',
-  'C', 'C', 'C', '', 'C', '', 'C', '', 'C', '', 'C', 'C', '', 'G', 'G', '', 'E', '', 'D', 'C', 'C'
+  "C",
+  "C",
+  "C",
+  "",
+  "C",
+  "",
+  "C",
+  "",
+  "C",
+  "",
+  "C",
+  "C",
+  "C",
+  "",
+  "C",
+  "",
+  "C",
+  "",
+  "D",
+  "",
+  "C",
+  "C",
+  "C",
+  "",
+  "C",
+  "",
+  "C",
+  "",
+  "C",
+  "",
+  "C",
+  "C",
+  "",
+  "G",
+  "G",
+  "",
+  "E",
+  "",
+  "D",
+  "C",
+  "C",
 ];
 
 const allSongsInOne = [
-  'C', '', 'D', '', 'E', '', 'F', '', 'G', '', '', 'G', 'F', 'E', 'D', 'C', '', '', '',
-  'E', '', 'D', '', 'C', '', 'D', '', 'E', '', 'E', '', 'E', '', '', 'D', '', 'D', '', 'D', '', '', 'E', '', 'G', '', 'G', '', '',
-  'E', '', 'D', '', 'C', '', 'D', '', 'E', '', 'E', '', 'E', '', 'E', '', 'D', '', 'D', '', 'E', '', 'D', '', 'C', '', '', '', '',
-  'E', 'D', 'C', 'D', 'E', 'E', 'E', '', 'D', 'D', 'D', '', 'E', 'G', 'G', '',
-  'E', 'D', 'C', 'D', 'E', 'E', 'E', 'E', 'D', 'D', 'E', 'D', 'C', '', '', '',
-  'E', 'E', 'E', '', 'E', 'E', 'E', '', 'E', '', 'G', '', 'C', '', 'D', '', 'E', '',
-  'F', 'F', 'F', '', 'F', 'F', '', 'E', 'E', '', 'E', 'E', 'E', '', 'D', 'D', '', 'E', '', 'D', '', 'G', '',
-  'E', 'E', 'E', '', 'E', 'E', 'E', '', 'E', '', 'G', '', 'C', '', 'D', '', 'E', '',
-  'F', 'F', 'F', '', 'F', 'F', '', 'E', 'E', '', 'E', 'E', '', 'G', 'G', '', 'F', '', 'D', '', 'C', '', '',
-  'G', 'G', '', 'F', 'F', '', 'E', 'E', '', 'D', 'D', '', 'C', '', 'E', '', 'D', '', 'C', '',
-  'C', 'C', '', 'C', 'C', '', 'C', 'C', '', 'C', 'C', 'C', '', 'E', '', 'D', '',
-  'G', 'G', '', 'F', 'F', '', 'E', 'E', '', 'D', 'D', '', 'C', '', 'E', '', 'D', '', 'C', '',
-  'C', 'C', '', 'C', 'C', '', 'C', 'C', '', 'C', 'C', 'C', '', 'E', '', 'D', '', 'C', '', '',
-  'C', '', 'E', '', 'C', '', 'D', 'D', '', 'E', 'C', 'C', 'C', 'C', '', 'G', 'G', '', 'E', '',
-  'D', 'C', '', 'E', '', 'C', '', 'D', 'D', '', 'E', '', 'D', '', 'C', '', 'D', '', 'E', '', 'C', '', '',
-  'C', 'C', 'C', '', 'C', '', 'C', '', 'C', '', 'C', 'C', 'C', '', 'C', '', 'C', '', 'D', '',
-  'C', 'C', 'C', '', 'C', '', 'C', '', 'C', '', 'C', 'C', '', 'G', 'G', '', 'E', '', 'D', 'C', 'C', '', '',
-  'G', 'G', 'G', 'G', '', 'F', '', 'E', '', 'F', '', 'E', '', 'C', '',
-  'C', 'C', 'C', 'C', '', 'D', 'D', '', 'E', '', 'F', '',
-  'G', 'G', 'G', 'G', '', 'F', '', 'E', '', 'F', '', 'E', '', 'C', '',
-  'C', 'C', 'C', '', 'F', '', 'E', '', 'C', 'C', ''
-]
+  "C",
+  "",
+  "D",
+  "",
+  "E",
+  "",
+  "F",
+  "",
+  "G",
+  "",
+  "",
+  "G",
+  "F",
+  "E",
+  "D",
+  "C",
+  "",
+  "",
+  "",
+  "E",
+  "",
+  "D",
+  "",
+  "C",
+  "",
+  "D",
+  "",
+  "E",
+  "",
+  "E",
+  "",
+  "E",
+  "",
+  "",
+  "D",
+  "",
+  "D",
+  "",
+  "D",
+  "",
+  "",
+  "E",
+  "",
+  "G",
+  "",
+  "G",
+  "",
+  "",
+  "E",
+  "",
+  "D",
+  "",
+  "C",
+  "",
+  "D",
+  "",
+  "E",
+  "",
+  "E",
+  "",
+  "E",
+  "",
+  "E",
+  "",
+  "D",
+  "",
+  "D",
+  "",
+  "E",
+  "",
+  "D",
+  "",
+  "C",
+  "",
+  "",
+  "",
+  "",
+  "E",
+  "D",
+  "C",
+  "D",
+  "E",
+  "E",
+  "E",
+  "",
+  "D",
+  "D",
+  "D",
+  "",
+  "E",
+  "G",
+  "G",
+  "",
+  "E",
+  "D",
+  "C",
+  "D",
+  "E",
+  "E",
+  "E",
+  "E",
+  "D",
+  "D",
+  "E",
+  "D",
+  "C",
+  "",
+  "",
+  "",
+  "E",
+  "E",
+  "E",
+  "",
+  "E",
+  "E",
+  "E",
+  "",
+  "E",
+  "",
+  "G",
+  "",
+  "C",
+  "",
+  "D",
+  "",
+  "E",
+  "",
+  "F",
+  "F",
+  "F",
+  "",
+  "F",
+  "F",
+  "",
+  "E",
+  "E",
+  "",
+  "E",
+  "E",
+  "E",
+  "",
+  "D",
+  "D",
+  "",
+  "E",
+  "",
+  "D",
+  "",
+  "G",
+  "",
+  "E",
+  "E",
+  "E",
+  "",
+  "E",
+  "E",
+  "E",
+  "",
+  "E",
+  "",
+  "G",
+  "",
+  "C",
+  "",
+  "D",
+  "",
+  "E",
+  "",
+  "F",
+  "F",
+  "F",
+  "",
+  "F",
+  "F",
+  "",
+  "E",
+  "E",
+  "",
+  "E",
+  "E",
+  "",
+  "G",
+  "G",
+  "",
+  "F",
+  "",
+  "D",
+  "",
+  "C",
+  "",
+  "",
+  "G",
+  "G",
+  "",
+  "F",
+  "F",
+  "",
+  "E",
+  "E",
+  "",
+  "D",
+  "D",
+  "",
+  "C",
+  "",
+  "E",
+  "",
+  "D",
+  "",
+  "C",
+  "",
+  "C",
+  "C",
+  "",
+  "C",
+  "C",
+  "",
+  "C",
+  "C",
+  "",
+  "C",
+  "C",
+  "C",
+  "",
+  "E",
+  "",
+  "D",
+  "",
+  "G",
+  "G",
+  "",
+  "F",
+  "F",
+  "",
+  "E",
+  "E",
+  "",
+  "D",
+  "D",
+  "",
+  "C",
+  "",
+  "E",
+  "",
+  "D",
+  "",
+  "C",
+  "",
+  "C",
+  "C",
+  "",
+  "C",
+  "C",
+  "",
+  "C",
+  "C",
+  "",
+  "C",
+  "C",
+  "C",
+  "",
+  "E",
+  "",
+  "D",
+  "",
+  "C",
+  "",
+  "",
+  "C",
+  "",
+  "E",
+  "",
+  "C",
+  "",
+  "D",
+  "D",
+  "",
+  "E",
+  "C",
+  "C",
+  "C",
+  "C",
+  "",
+  "G",
+  "G",
+  "",
+  "E",
+  "",
+  "D",
+  "C",
+  "",
+  "E",
+  "",
+  "C",
+  "",
+  "D",
+  "D",
+  "",
+  "E",
+  "",
+  "D",
+  "",
+  "C",
+  "",
+  "D",
+  "",
+  "E",
+  "",
+  "C",
+  "",
+  "",
+  "C",
+  "C",
+  "C",
+  "",
+  "C",
+  "",
+  "C",
+  "",
+  "C",
+  "",
+  "C",
+  "C",
+  "C",
+  "",
+  "C",
+  "",
+  "C",
+  "",
+  "D",
+  "",
+  "C",
+  "C",
+  "C",
+  "",
+  "C",
+  "",
+  "C",
+  "",
+  "C",
+  "",
+  "C",
+  "C",
+  "",
+  "G",
+  "G",
+  "",
+  "E",
+  "",
+  "D",
+  "C",
+  "C",
+  "",
+  "",
+  "G",
+  "G",
+  "G",
+  "G",
+  "",
+  "F",
+  "",
+  "E",
+  "",
+  "F",
+  "",
+  "E",
+  "",
+  "C",
+  "",
+  "C",
+  "C",
+  "C",
+  "C",
+  "",
+  "D",
+  "D",
+  "",
+  "E",
+  "",
+  "F",
+  "",
+  "G",
+  "G",
+  "G",
+  "G",
+  "",
+  "F",
+  "",
+  "E",
+  "",
+  "F",
+  "",
+  "E",
+  "",
+  "C",
+  "",
+  "C",
+  "C",
+  "C",
+  "",
+  "F",
+  "",
+  "E",
+  "",
+  "C",
+  "C",
+  "",
+];
 
 // Create Own Songs Section
 let createBtn = document.querySelectorAll("#create");
@@ -124,7 +869,7 @@ for (let i = 0; i < createBtn.length; i++) {
   createBtn[i].addEventListener("click", function (event) {
     let buttonInnerHTML = this.innerHTML;
     let target = document.getElementById("createSong");
-    let newSpan = document.createElement('span');
+    let newSpan = document.createElement("span");
     newSpan.setAttribute("id", "createSpan");
     const newContent = document.createTextNode(buttonInnerHTML);
     newSpan.append(newContent);
@@ -132,17 +877,20 @@ for (let i = 0; i < createBtn.length; i++) {
   });
 }
 
-inputSong = spliceIntoFive(allSongsInOne, 5)
+inputSong = spliceIntoFive(allSongsInOne, 5);
 newGame.addEventListener("click", function (event) {
-  if (newGame.innerHTML == "PRESS TO PLAY YOUR SONG" || newGame.innerHTML == "GAME OVER") {
-    let newAddedNotes = document.querySelectorAll('#createSpan');
+  if (
+    newGame.innerHTML == "PRESS TO PLAY YOUR SONG" ||
+    newGame.innerHTML == "GAME OVER"
+  ) {
+    let newAddedNotes = document.querySelectorAll("#createSpan");
 
     let newInputSong = [];
     for (let i = 0; i < newAddedNotes.length; i++) {
       newInputSong.push(newAddedNotes[i].innerHTML);
-      console.log(newInputSong)
+      console.log(newInputSong);
       if (newAddedNotes.innerHTML !== 0) {
-        inputSong = spliceIntoFive(newInputSong, 5)
+        inputSong = spliceIntoFive(newInputSong, 5);
       }
     }
     // gameStatus = window.setInterval(animateGame, 8);
@@ -170,7 +918,6 @@ newGame.addEventListener("click", function (event) {
 //   return arrayNumbers
 // }
 
-
 // function checkGame() {
 //   if (newGame.innerHTML !== 0) {
 //     console.log("yes is 0")
@@ -184,7 +931,7 @@ function spliceIntoFive(arr, chunkSize) {
     const chunk = arr.splice(0, chunkSize);
     res.push(chunk);
   }
-  return res
+  return res;
 }
 // let inputSong = spliceIntoFive(allSongsInOne, 5)
 
@@ -203,35 +950,35 @@ function prepList(input) {
 }
 
 let newSong = prepList(inputSong);
-console.log(newSong.length)
+console.log(newSong.length);
 
 function addSpace(arr) {
-  let newList = []
+  let newList = [];
   for (let i = 0; i <= 5; i++) {
     for (let j = 0; j <= 5; j++) {
       // to refresh the x everytime as splice will alter original x
-      let x = ['', '', '', '']
-      if (arr[i][j] == 'C') {
+      let x = ["", "", "", ""];
+      if (arr[i][j] == "C") {
         x.splice(0, 0, arr[i][j]);
         newList.push(x);
-      } else if (arr[i][j] == 'D') {
+      } else if (arr[i][j] == "D") {
         x.splice(1, 0, arr[i][j]);
         newList.push(x);
-      } else if (arr[i][j] == 'E') {
+      } else if (arr[i][j] == "E") {
         x.splice(2, 0, arr[i][j]);
         newList.push(x);
-      } else if (arr[i][j] == 'F') {
+      } else if (arr[i][j] == "F") {
         x.splice(3, 0, arr[i][j]);
         newList.push(x);
-      } else if (arr[i][j] == 'G') {
+      } else if (arr[i][j] == "G") {
         x.splice(4, 0, arr[i][j]);
         newList.push(x);
-      } else if (arr[i][j] == '') {
-        x.push('');
+      } else if (arr[i][j] == "") {
+        x.push("");
         newList.push(x);
       }
     }
-    return newList
+    return newList;
   }
 }
 
@@ -255,7 +1002,13 @@ class Component {
     grd.addColorStop(1, this.color);
     ctx.fillStyle = grd;
     ctx.fillRect(this.x, this.y, this.width, this.height);
-    ctx.drawImage("images/blueGem.png", this.x, this.y, this.width, this.height);
+    ctx.drawImage(
+      "images/blueGem.png",
+      this.x,
+      this.y,
+      this.width,
+      this.height
+    );
     //ctx.clearRect(this.x, this.y + 10, this.width, this.height);
   }
 }
@@ -318,18 +1071,18 @@ function createColorList(arr) {
   let colors = [];
   for (let i = 0; i < arr.length; i++) {
     //let colors = ['red', 'blue', 'green', 'yellow', 'purple'];
-    if (arr[i] == 'C') {
-      colors.push('red');
-    } else if (arr[i] == 'D') {
-      colors.push('blue');
-    } else if (arr[i] == 'E') {
-      colors.push('green');
-    } else if (arr[i] == 'F') {
-      colors.push('yellow');
-    } else if (arr[i] == 'G') {
-      colors.push('purple');
-    } else if (arr[i] == '') {
-      colors.push('transparent');
+    if (arr[i] == "C") {
+      colors.push("red");
+    } else if (arr[i] == "D") {
+      colors.push("blue");
+    } else if (arr[i] == "E") {
+      colors.push("green");
+    } else if (arr[i] == "F") {
+      colors.push("yellow");
+    } else if (arr[i] == "G") {
+      colors.push("purple");
+    } else if (arr[i] == "") {
+      colors.push("transparent");
     }
   }
   return colors;
@@ -345,8 +1098,8 @@ const x_input = [
   [cw * 0.1 - 25, cw * 0.3 - 25, cw * 0.5 - 25, cw * 0.7 - 25, cw * 0.9 - 25],
   [cw * 0.1 - 25, cw * 0.3 - 25, cw * 0.5 - 25, cw * 0.7 - 25, cw * 0.9 - 25],
   [cw * 0.1 - 25, cw * 0.3 - 25, cw * 0.5 - 25, cw * 0.7 - 25, cw * 0.9 - 25],
-  [cw * 0.1 - 25, cw * 0.3 - 25, cw * 0.5 - 25, cw * 0.7 - 25, cw * 0.9 - 25]
-]
+  [cw * 0.1 - 25, cw * 0.3 - 25, cw * 0.5 - 25, cw * 0.7 - 25, cw * 0.9 - 25],
+];
 
 // Generating correct # of xPos for corresponding song length
 function fillArray(value, len) {
@@ -354,14 +1107,14 @@ function fillArray(value, len) {
   for (let i = 0; i < len; i++) {
     posX.push(value);
   }
-  let merged = [].concat.apply([], posX)
+  let merged = [].concat.apply([], posX);
   return merged;
 }
-const xPos = fillArray(x_input, newSong.length)
+const xPos = fillArray(x_input, newSong.length);
 // console.log(xPos)
 
 // Generating yPos for constructing components
-let startPosY = [0, 0, 0, 0, 0]
+let startPosY = [0, 0, 0, 0, 0];
 
 function updatePosY(input) {
   return input - 60;
@@ -369,16 +1122,16 @@ function updatePosY(input) {
 }
 
 function generatePosY() {
-  let allPosY = []
+  let allPosY = [];
   for (let i = 0; i < newSong.length; i++) {
-    let newArray = startPosY.map(updatePosY)
-    startPosY = newArray
-    allPosY.push(newArray)
+    let newArray = startPosY.map(updatePosY);
+    startPosY = newArray;
+    allPosY.push(newArray);
   }
-  return allPosY
+  return allPosY;
 }
 let yPos = generatePosY(); // nested arrays of all y-coordinates
-console.log(yPos)
+console.log(yPos);
 
 // create a position to check for ''
 function checkPressCondition(input) {
@@ -386,13 +1139,13 @@ function checkPressCondition(input) {
 }
 
 function generateCorrectPress() {
-  let allCorrectPosY = []
+  let allCorrectPosY = [];
   for (let i = 0; i < newSong.length; i++) {
-    let newArray = startPosY.map(checkPressCondition)
-    startPosY = newArray
-    allCorrectPosY.push(newArray)
+    let newArray = startPosY.map(checkPressCondition);
+    startPosY = newArray;
+    allCorrectPosY.push(newArray);
   }
-  return allCorrectPosY
+  return allCorrectPosY;
 }
 let correctPos = generateCorrectPress();
 console.log(correctPos);
@@ -402,7 +1155,13 @@ function createComponents() {
   let height = 50;
   for (let i = 0; i < newSong.length; i++) {
     for (let j = 0; j < 5; j++) {
-      let eachBlock = new Component(xPos[i][j], yPos[i][j], width, height, newColorArr[i][j])
+      let eachBlock = new Component(
+        xPos[i][j],
+        yPos[i][j],
+        width,
+        height,
+        newColorArr[i][j]
+      );
       gameBlocks.push(eachBlock);
     }
   }
@@ -421,7 +1180,7 @@ class TrackLines {
     this.strokeStyle = strokeStyle;
   }
   drawLine() {
-    ctx.strokeStyle = "grey"
+    ctx.strokeStyle = "grey";
     ctx.beginPath();
     ctx.setLineDash([20, 5, 5, 5]);
     ctx.moveTo(this.x1, this.y1);
@@ -438,7 +1197,7 @@ function createLines(num) {
     let x2 = [cw * 0.2, cw * 0.4, cw * 0.6, cw * 0.8, cw];
     let y2 = ch;
 
-    let eachLine = new TrackLines(x1[i], y1, x2[i], y2)
+    let eachLine = new TrackLines(x1[i], y1, x2[i], y2);
     lines.push(eachLine);
   }
 }
@@ -460,11 +1219,10 @@ function animateGame() {
 console.log(gameBlocks);
 // console.log(gameBlocks.length);
 
-
 // Add Time
 function myTimer() {
   const d = new Date();
-  document.getElementById("time").innerHTML = d.toLocaleTimeString('it-IT');
+  document.getElementById("time").innerHTML = d.toLocaleTimeString("it-IT");
 }
 setInterval(myTimer, 0);
 
@@ -472,41 +1230,47 @@ setInterval(myTimer, 0);
 let numOfButtons = document.querySelectorAll("#key").length;
 let selectBtn = document.querySelectorAll("#key");
 
-
 // mouse - click eventlistener
 for (let i = 0; i < numOfButtons; i++) {
-  document.querySelectorAll("#key")[i].addEventListener("click", function (event) {
-    for (let i = 0; i < 1; i++) {
-      let buttonInnerHTML = this.innerHTML;
-      if (gameBlocks[i].y >= 0.85 * ch || gameBlocks[i].y <= ch) {
-        makeCorrectSound(buttonInnerHTML);
-        buttonAnimation(buttonInnerHTML);
-        addScore(1)
-        // } else if (gameBlocks[i].y > ch) {
-        //   makeWrongSound(buttonInnerHTML);
+  document.querySelectorAll("#key")[i].addEventListener(
+    "click",
+    function (event) {
+      for (let i = 0; i < 1; i++) {
+        let buttonInnerHTML = this.innerHTML;
+        if (gameBlocks[i].y >= 0.85 * ch || gameBlocks[i].y <= ch) {
+          makeCorrectSound(buttonInnerHTML);
+          buttonAnimation(buttonInnerHTML);
+          addScore(1);
+          // } else if (gameBlocks[i].y > ch) {
+          //   makeWrongSound(buttonInnerHTML);
+        }
       }
-    }
-  }, false);
+    },
+    false
+  );
 }
 // console.log(gameBlocks[0].y);
 
 // keypress eventlistener
-document.addEventListener("keydown", (event) => {
-  for (let i = 0; i < 1; i++) {
-    if (gameBlocks[i].y <= ch) {
-      console.log(event.key)
-      makeCorrectSound(event.key);
-      buttonAnimation(event.key);
-      addScore(1);
-      event.stopPropagation();
-      console.log(`${event.key}: correct`)
-      // } else // difficult to track the wrong region as my y keep increasing
-      //   makeWrongSound(event.key);
-      // addScore(-1);
+document.addEventListener(
+  "keydown",
+  (event) => {
+    for (let i = 0; i < 1; i++) {
+      if (gameBlocks[i].y <= ch) {
+        console.log(event.key);
+        makeCorrectSound(event.key);
+        buttonAnimation(event.key);
+        addScore(1);
+        event.stopPropagation();
+        console.log(`${event.key}: correct`);
+        // } else // difficult to track the wrong region as my y keep increasing
+        //   makeWrongSound(event.key);
+        // addScore(-1);
+      }
     }
-  }
-}, false);
-
+  },
+  false
+);
 
 function makeCorrectSound(key) {
   switch (key) {
@@ -521,17 +1285,17 @@ function makeCorrectSound(key) {
       break;
 
     case "d":
-      let btnC = new Audio('notes/notes_E4.mp3');
+      let btnC = new Audio("notes/notes_E4.mp3");
       btnC.play();
       break;
 
     case "f":
-      let btnD = new Audio('notes/notes_F4.mp3');
+      let btnD = new Audio("notes/notes_F4.mp3");
       btnD.play();
       break;
 
     case "g":
-      let btnE = new Audio('notes/notes_G4.mp3');
+      let btnE = new Audio("notes/notes_G4.mp3");
       btnE.play();
       break;
 
@@ -553,17 +1317,17 @@ function makeWrongSound(key) {
       break;
 
     case "d":
-      let btnD = new Audio('sounds/wrongSound.mp3');
+      let btnD = new Audio("sounds/wrongSound.mp3");
       btnD.play();
       break;
 
     case "f":
-      let btnF = new Audio('sounds/wrongSound.mp3');
+      let btnF = new Audio("sounds/wrongSound.mp3");
       btnF.play();
       break;
 
     case "g":
-      let btnH = new Audio('sounds/wrongSound.mp3');
+      let btnH = new Audio("sounds/wrongSound.mp3");
       btnH.play();
       break;
 
@@ -587,29 +1351,34 @@ function buttonAnimation(key) {
 let score = 0;
 
 function addScore(x) {
-  $("#score").animate({
-    score: x
-  }, {
-    duration: 1000,
-    easing: "linear",
-    step: function (now, fx) {
-      $("#score").html(score + Math.floor(now));
+  $("#score").animate(
+    {
+      score: x,
     },
-    queue: false,
-    complete: function (now, fx) {
-      score += x;
+    {
+      duration: 1000,
+      easing: "linear",
+      step: function (now, fx) {
+        $("#score").html(score + Math.floor(now));
+      },
+      queue: false,
+      complete: function (now, fx) {
+        score += x;
+      },
     }
-  });
-  $("#tag").fadeIn({
-    duration: 700,
-    easing: "linear",
-    step: function (now, fx) {
-      $(this).css("top", -55 * now + "px");
-    }
-  }).fadeOut({
-    duration: 300,
-    step: function (now, fx) {
-      $(this).css("top", -55 * (2 - now) + "px");
-    }
-  });
+  );
+  $("#tag")
+    .fadeIn({
+      duration: 700,
+      easing: "linear",
+      step: function (now, fx) {
+        $(this).css("top", -55 * now + "px");
+      },
+    })
+    .fadeOut({
+      duration: 300,
+      step: function (now, fx) {
+        $(this).css("top", -55 * (2 - now) + "px");
+      },
+    });
 }
